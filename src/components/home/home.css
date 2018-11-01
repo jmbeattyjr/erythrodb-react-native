@@ -1,0 +1,116 @@
+.home-container {
+  background: #0000000c;
+  height: 100vh;
+  border: 0;
+  padding: 0;
+}
+
+.opening-banner {
+}
+
+.opening-banner__left {
+  display: inline-block;
+  width: 40%;
+  margin: 0 0 0 0;
+  padding: 20px 0 0 20px;
+}
+
+#opening-banner__title {
+  color: #800000;
+}
+
+#opening-banner__subtitle {
+  width: 90%;
+  font-size: 30px;
+}
+
+#opening-banner__link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+#opening-banner__link:hover {
+  padding: 10px;
+  background: #a1a1a1;
+}
+
+#opening-banner__link p {
+  display: inline-block;
+}
+
+#opening-banner__link svg {
+  display: inline-block;
+}
+
+.opening-banner__right {
+  display: inline-block;
+  width: 50%;
+  height: 375px;
+  background: url('./cellmap.png') center / cover;
+  float: right;
+  z-index: 10;
+  vertical-align: center;
+}
+
+.body-navigation {
+  display: inline-block;
+  background: white;
+  width: 96%;
+  padding: 2%;
+}
+
+.body-navigation__item {
+  display: inline-block;
+  width: 30vw;
+  padding: 1%;
+  vertical-align: top;
+}
+
+#body-navigation__bibliome-image {
+  background-image: url('./bibliomeicon.png');
+  background-repeat: no-repeat;
+  background-size: 100px;
+  height: 100px;
+}
+
+#body-navigation__cellmap-image {
+  background-image: url('./cellmapicon.png');
+  background-repeat: no-repeat;
+  background-size: 100px;
+  height: 100px;
+}
+
+#body-navigation__datarep-image {
+  background-image: url('./datarepicon.png');
+  background-repeat: no-repeat;
+  background-size: 100px;
+  height: 100px;
+}
+
+.closing-banner {
+  display: inline-block;
+  background: #800000;
+  /* height: 200px; */
+  width: 100%;
+}
+
+.closing-banner__left {
+  display: inline-block;
+  color: white;
+  width: 44%;
+  padding: 3%;
+  vertical-align: top;
+}
+
+.closing-banner__right {
+  display: inline-block;
+  color: white;
+  width: 44%;
+  padding: 3%;
+  vertical-align: top;
+}
+
+.closing-banner__right-cite {
+    border-left: white solid 2px;
+    padding: 5%;
+}

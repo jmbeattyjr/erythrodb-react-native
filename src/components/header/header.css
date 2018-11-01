@@ -1,0 +1,35 @@
+/* @import "../styles/utils.scss"; */
+
+
+.main-header {
+}
+
+.main-header__logo-container {
+  display: inline-block;
+  width: 30%;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header__logo {
+  height: 100px;
+  padding: 0 0 0 30px;
+}
+
+.main-header__nav {
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+  width: calc(100% - 400px);
+}
+
+.main-header__nav a {
+  display: inline-block;
+  color: black;
+  padding: 0;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+}
