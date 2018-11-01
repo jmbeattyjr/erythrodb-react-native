@@ -9,7 +9,7 @@ export default {
     return [
       {
         path: '/',
-        component: 'src/containers/Home',
+        component: 'src/components/home/Home',
       },
       {
         path: '/about',
