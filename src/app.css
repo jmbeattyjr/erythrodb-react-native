@@ -1,8 +1,12 @@
-body {
-  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial,
-    'Lucida Grande', sans-serif;
+html {
+  font-family: 'Source Sans Pro';
   font-weight: 300;
   font-size: 1vw;
+  margin: 0;
+  padding: 0;
+}
+
+body {
   margin: 0;
   padding: 0;
 }

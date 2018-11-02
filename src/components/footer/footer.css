@@ -1,0 +1,29 @@
+.main-footer {
+  width: 100vw;
+  min-height: 10vh;
+  /* background: linear-gradient( #000000, url('./images/ErythroDBLight.svg')) center / cover; */
+  background: black
+}
+
+.main-footer h1 {
+  color: white;
+  font-size: 1.1vw;
+}
+
+.main-footer__left {
+  display: inline-block;
+  width: 45vw;
+  max-height: 100%;
+  margin: 0 0 0 0;
+  padding: 2vw 0 2vw 2vw;
+  vertical-align: top;
+}
+
+.main-footer__right {
+  display: inline-block;
+  width: 45vw;
+  max-height: 100%;
+  margin: 0 0 0 5vw;
+  padding: 2vw 0 2vw 2vw;
+  vertical-align: top;
+}

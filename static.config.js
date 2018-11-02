@@ -13,16 +13,16 @@ export default {
       },
       {
         path: '/bibliome',
-        component: 'src/containers/bibliome'
+        component: 'src/components/bibliome/Bibliome'
       },
 
       {
-        path: '/about',
-        component: 'src/containers/About'
+        path: '/cellMap',
+        component: 'src/components/cellMap/CellMap'
       },
       {
-        path: '/blog',
-        component: 'src/containers/Blog',
+        path: '/dataRepo',
+        component: 'src/components/dataRepo/DataRepo',
         getData: () => ({
           posts
         }),

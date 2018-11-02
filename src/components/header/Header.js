@@ -23,8 +23,8 @@ class Header extends React.Component {
           <Link className="main-header__nav-link" exact to="/bibliome">
             Bibliome
           </Link>
-          <Link className="main-header__nav-link" to="/about">Cell Map</Link>
-          <Link className="main-header__nav-link" to="/blog">Data Repository</Link>
+          <Link className="main-header__nav-link" to="/cellMap">Cell Map</Link>
+          <Link className="main-header__nav-link" to="/dataRepo">Data Repository</Link>
         </nav>
       </div>
     )

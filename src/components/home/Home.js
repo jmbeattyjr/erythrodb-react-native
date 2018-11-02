@@ -12,31 +12,31 @@ export default withSiteData(() => (
         <h3 id="opening-banner__subtitle">
           Things we are doing here are pretty awesome. It's impossible to descibe how awesome, as a matter of fact. If I tried, I might perish
         </h3>
-        <Link id="opening-banner__link" to="/about">
+        <Link id="opening-banner__link" to="/cellMap">
           <p>Go to Map &#8618;</p>
         </Link>
       </div>
       <div className="opening-banner__right" />
     </div>
     <div className="body-navigation">
-      <Link className="body-navigation__item" to="/about">
+      <Link className="body-navigation__item" to="/bibliome">
         <div id="body-navigation__bibliome-image" />
         <h1>Bibliome &#8618;</h1>
         <h3>Bibliome Description</h3>
       </Link>
-      <div className="body-navigation__item">
+      <Link className="body-navigation__item" to='/cellMap'>
         <div id="body-navigation__cellmap-image" />
         <h1>Cell Map &#8618;</h1>
         <h3>
           A metabolic map of the human erythrocyte (created using Escher) and a hub for connecting to experimental data, academic studies, and
           databases on the red blood cell.
         </h3>
-      </div>
-      <div className="body-navigation__item">
+      </Link>
+      <Link className="body-navigation__item" to='/dataRepo'> 
         <div id="body-navigation__datarep-image" />
         <h1>Data Repository &#8618;</h1>
         <h3>Data Repository</h3>
-      </div>
+      </Link>
     </div>
     <div className="closing-banner">
       <div className="closing-banner__left">

@@ -1,15 +1,15 @@
 .home-container {
   background: #0000000c;
-  height: 100vh;
   border: 0;
   padding: 0;
 }
 
 .opening-banner {
   display: inline-block;
+  min-height: 35vh;
   max-height: 50vh;
-  background: url('./background.png') center / cover;
-  float: right;
+  background: url('./images/background.png') center / cover;
+  /* float: right; */
 }
 
 .opening-banner__left {
@@ -78,6 +78,7 @@
 .body-navigation__item:visited {
   display: inline-block;
   width: 30vw;
+  min-height: 30vh;
   height: 45vw;
   max-height: 60vh;
   padding: 1vw;
@@ -97,21 +98,21 @@
 }
 
 #body-navigation__bibliome-image {
-  background-image: url('./icon-DataRepo.svg');
+  background-image: url('./images/icon-DataRepo.svg');
   background-repeat: no-repeat;
   background-size: 10vw;
   height: 10vw;
 }
 
 #body-navigation__cellmap-image {
-  background-image: url('./icon-CellMap.svg');
+  background-image: url('./images/icon-CellMap.svg');
   background-repeat: no-repeat;
   background-size: 10vw;
   height: 10vw;
 }
 
 #body-navigation__datarep-image {
-  background-image: url('./icon-DataRepo.svg');
+  background-image: url('./images/icon-DataRepo.svg');
   background-repeat: no-repeat;
   background-size: 10vw;
   height: 10vw;
@@ -120,7 +121,7 @@
 .closing-banner {
   display: inline-block;
   background: #800000;
-  /* height: 200px; */
+  min-height: 20vh;
   width: 100%;
 }
 
