@@ -6,14 +6,15 @@
 
 .main-header__logo-container {
   display: inline-block;
-  width: 30%;
+  width: 30vw;
   vertical-align: middle;
   margin: 0;
   padding: 0;
 }
 
 .main-header__logo {
-  height: 100px;
+  width: 30vw;
+  max-height: 100px;
   padding: 0 0 0 30px;
 }
 
@@ -21,15 +22,17 @@
   display: inline-block;
   text-align: right;
   vertical-align: middle;
-  width: calc(100% - 400px);
+  width: 65vw;
+  margin: 0 1.5vw;
+  height: 100%;
 }
 
 .main-header__nav a {
   display: inline-block;
   color: black;
   padding: 0;
-  margin: 0 10px;
+  margin: 0 1vw;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 2.1vw;
   font-weight: bold;
 }
