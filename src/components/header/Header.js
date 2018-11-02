@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader'
 
 import './header.css'
 
-import logo from './images/cell.png'
+import logo from './images/ErythroDBLight.svg'
 
 class Header extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Header extends React.Component {
           <img className="main-header__logo" src={logo} alt="erythrodb" />
         </Link>
         <nav className="main-header__nav">
-          <Link className="main-header__nav-link" exact to="/">
+          <Link className="main-header__nav-link" exact to="/bibliome">
             Bibliome
           </Link>
           <Link className="main-header__nav-link" to="/about">Cell Map</Link>

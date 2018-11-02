@@ -19,11 +19,11 @@ export default withSiteData(() => (
       <div className="opening-banner__right" />
     </div>
     <div className="body-navigation">
-      <div className="body-navigation__item">
+      <Link className="body-navigation__item" to="/about">
         <div id="body-navigation__bibliome-image" />
         <h1>Bibliome &#8618;</h1>
         <h3>Bibliome Description</h3>
-      </div>
+      </Link>
       <div className="body-navigation__item">
         <div id="body-navigation__cellmap-image" />
         <h1>Cell Map &#8618;</h1>
