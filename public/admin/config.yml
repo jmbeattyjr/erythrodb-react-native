@@ -1,0 +1,66 @@
+backend:
+  name: git-gateway
+  branch: master
+media_folder: public/uploads
+public_folder: /uploads
+collections:
+  - label: Pages
+    name: pages
+    files:
+      - label: "Home Page"
+        name: home
+        file: src/data/pages/home.yml
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - label: Title
+                name: title
+                widget: string
+              - label: "Example text"
+                name: exampleText
+                widget: text
+              - label: "Example Markdown"
+                name: exampleMarkdown
+                widget: markdown
+      - label: "Contact Page"
+        name: contact
+        file: src/data/pages/contact.yml
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - label: Title
+                name: title
+                widget: string
+              - label: "Example text"
+                name: exampleText
+                widget: text
+              - label: "Example Markdown"
+                name: exampleMarkdown
+                widget: markdown
+      - label: "Other Page"
+        name: other
+        file: src/data/pages/other.yml
+        fields:
+          - label: Other
+            name: other
+            widget: object
+            fields:
+              - label: "Title Other"
+                name: title
+                widget: string
+              - label: "Text other"
+                name: exampleText
+                widget: text
+  - label: "Blog"
+    name: "blog"
+    folder: "src/data/blog"
+    create: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }
