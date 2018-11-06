@@ -78,7 +78,7 @@ collections:
               - label: Body
                 name: body
                 widget: string
-              -label: Citation
+              - label: Citation
                 name: cite
                 widget: string
   #     - label: "Contact Page"
