@@ -1,24 +1,6 @@
 openingBannerLeft:
-    title: Amazing Tagline
-    subtitle: Things we are doing here are pretty awesome. It's impossible to descibe how awesome, as a matter of fact. If I tried, I might perish
-    link: Go to Map
-bodyNavigation:
-    Bibliome:
-        heading: Bibliome   
-        body: Bibliome Description
-    CellMap:
-        heading: Cell Map   
-        body: A metabolic map of the human erythrocyte (created using Escher) and a hub for connecting to experimental data, academic studies, and
-              databases on the red blood cell.
-    dataRep:
-        heading: Data Repository
-        body: Data Repository
-closingBannerLeft:
-    title: Contribute
-    body: We are always attempting to make ErythroDB as complete of a resource as possible; please email James ( jyurkovich AT ucsd DOT edu) to
-              upload data, add figures, or include an article in the bibliom. Other suggestions for how to improve ErythroDB are always welcome!
-closingBannerRight:
-    title: Citations
-    body: You can help support ErythroDB by citing our publication when you use ErythroDB
-    cite: JT Yurkovich, BJ Yurkovich, A Draeger, BO Palsson, and ZA King. 2017 "A Padawan Programmer's Guide to Developing Software
-              Libraries."Cell Systems, 5(5):431-437
+  link: Go to Map
+  subtitle: >-
+    Things we are doing here are pretty awesome. It's impossible to descibe how
+    awesome, as a matter of fact. If I tried, I might perish
+  title: Amazing Tagline Does Work
