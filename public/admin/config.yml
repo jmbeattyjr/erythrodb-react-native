@@ -11,19 +11,19 @@ collections:
         name: home
         file: src/data/pages/home.yml
         fields:
-          - label: Hero
-            name: hero
+          - label: Opening Banner Left
+            name: openingBannerLeft
             widget: object
             fields:
               - label: Title
                 name: title
                 widget: string
-              - label: "Example text"
-                name: exampleText
-                widget: text
-              - label: "Example Markdown"
-                name: exampleMarkdown
-                widget: markdown
+              - label: Sub Title
+                name: subtitle
+                widget: sting
+              - label: Link
+                name: link
+                widget: string
   #     - label: "Contact Page"
   #       name: contact
   #       file: src/data/pages/contact.yml
