@@ -1,3 +1,9 @@
 .bibliome-body {
-    min-height: 85vh;
+  min-height: 78vh;
+}
+
+.table {
+  display: flex;
+  position: relative;
+  justify-content: center;
 }

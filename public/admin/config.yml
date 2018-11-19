@@ -80,7 +80,7 @@ collections:
                 widget: string
               - label: Citation
                 name: cite
-                widget: string
+                widget: string 
   #     - label: "Contact Page"
   #       name: contact
   #       file: src/data/pages/contact.yml
