@@ -1,0 +1,71 @@
+.simulator-body {
+    min-height: 75vh;
+}
+
+.chartContainers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+#metaboliteConcetration {
+    margin: 50px
+}
+
+.buttonRow {
+    display: flex;
+    margin: 5px;
+}
+
+p {
+    margin: 0 5px;
+}
+
+.optionsTitle {
+    position: relative;
+    top: 60px;
+    margin: 0;
+    text-align: center;
+}
+.options {
+    position: relative;
+    top: 60px;
+    height: 200px;
+    width: 200px;
+    border: 2px solid black;
+    margin: 10px;
+}
+
+.plotOptionsTitle {
+    position: relative;
+    top: 60px;
+    margin: 0;
+    text-align: center;
+}
+
+.plotOptions {
+    position: relative;
+    top: 60px;
+    height: 100px;
+    width: 200px;
+    border: 2px solid black;
+    margin: 10px;
+}
+
+#reactionVelocityProfiles {
+    margin: 50px
+}
+
+.recharts-surface {
+    overflow: unset;
+}
+
+.recharts-wrapper {
+    height: 300px;
+    width: 300px;
+}
+
+#testLine {
+    display: none
+}

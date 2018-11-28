@@ -1,0 +1,46 @@
+table {
+  display: inline-block;
+  width: 90%;
+  border-collapse:collapse;
+  border: 0 0 2px 0 solid black;
+  height: 60vh;
+}
+
+#tableContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 2vh 0 2vh 0;
+  height: 70vh;
+}
+
+#data {
+  height: 53vh;
+  overflow: scroll
+}
+
+td {
+  border: 0 solid black;
+}
+
+.column_0 {
+  width: 3vw;
+  text-align: center;
+}
+.column_1{
+  width: 34vw;
+  height: 6vh
+}
+.column_2 {
+  width: 15vw
+}
+.column_3 {
+  width: 10vw
+}
+.column_4 {
+  width: 5vw;
+  text-align: center;
+}
+.column_5 {
+  width: 30vw
+}

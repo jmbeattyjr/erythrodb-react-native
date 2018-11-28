@@ -20,11 +20,18 @@ class Header extends React.Component {
           <img className="main-header__logo" src={logo} alt="erythrodb" />
         </Link>
         <nav className="main-header__nav">
+          <Link className="main-header__nav-link" exact to="/simulator">
+            Simulator
+          </Link>
           <Link className="main-header__nav-link" exact to="/bibliome">
             Bibliome
           </Link>
-          <Link className="main-header__nav-link" to="/cellMap">Cell Map</Link>
-          <Link className="main-header__nav-link" to="/dataRepo">Data Repository</Link>
+          <Link className="main-header__nav-link" to="/cellMap">
+            Cell Map
+          </Link>
+          <Link className="main-header__nav-link" to="/dataRepo">
+            Data Repository
+          </Link>
         </nav>
       </div>
     )

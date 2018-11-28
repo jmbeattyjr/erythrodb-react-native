@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { browserHistory } from 'react-router'
 import { Table, Column, Cell } from 'fixed-data-table-2'
 import 'fixed-data-table-2/dist/fixed-data-table.css'
-import dataList from '../../assets/data.json'
+import dataList from './data.json'
 
 const { CollapseCell } = require('../../lib/cells.js')
 const { StyleSheet, css } = require('aphrodite')

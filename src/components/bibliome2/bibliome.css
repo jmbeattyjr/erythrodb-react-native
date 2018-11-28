@@ -1,0 +1,29 @@
+.bibliome-body {
+  min-height: 78vh;
+}
+
+.table {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+th {
+  min-width: 100px;
+}
+
+table {
+  display: inline-block;
+  justify-self: center;
+  align-self: center;
+}
+
+#Table {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+#Table.td {
+  min-width: 100px;
+}

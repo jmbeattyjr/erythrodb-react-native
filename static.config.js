@@ -21,8 +21,12 @@ export default {
         })
       },
       {
+        path: '/simulator',
+        component: 'src/components/simulator/Simulator'
+      },
+      {
         path: '/bibliome',
-        component: 'src/components/bibliome/Bibliome'
+        component: 'src/components/bibliome4/Bibliome'
       },
 
       {
