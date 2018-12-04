@@ -50,16 +50,17 @@ export const fetchSimData = () => {
         desired_outputs: {
           concentrations: ['glc__D_c'],
           flux: ['HEX1', 'PYK'],
-          computed: ['glc__D_c / HEX1 * 0.5']
+          computed: ['glc__D_c/HEX1*0.5']
         }
       }
     })
       .then(responseSimData => {
+        console.log(responseSimData)
         const fluxHEX1 = responseSimData.flux.HEX1
         const fluxPYK = responseSimData.flux.PYK
         const time = responseSimData.time
         const concentrationsGlcDC = responseSimData.concentrations.glc__D_c
-        const computed = responseSimData.computed
+        // const computed = responseSimData.computed.glc__D_c/HEX1*0.5
         dispatch(fetchSimDataSuccess({ time: time, fluxHEX1: fluxHEX1, concentrationsGlcDC: concentrationsGlcDC, fluxPYK: fluxPYK }))
       })
       .catch(err => {

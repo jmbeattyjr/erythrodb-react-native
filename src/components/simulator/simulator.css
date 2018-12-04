@@ -8,6 +8,17 @@
     flex-direction: row;
     justify-content: center;
     align-content: flex-start;
+    border: 5px grey solid;
+    border-radius: 2vh;
+    margin: 2vw;
+}
+
+.optionsContainers {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-content: flex-start;
 }
 
 .chartSubContainers {

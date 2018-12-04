@@ -119,6 +119,8 @@ class Simulator extends React.Component {
   }
 
   render() {
+    console.log(this.state)
+    console.log(this.props)
     const { simDataRoot } = this.props
 
     if (this.props.simDataRoot.hasFetched === true && this.state.hasUpdated === false) {
@@ -139,7 +141,7 @@ class Simulator extends React.Component {
       <div className="simulator-body">
         <button onClick={this.submit.bind(this)}>Get Data</button>
         <button onClick={this.create.bind(this)}>Create Data</button>
-        
+
         <div className="chartContainers">
           <div className="chartSectionTitle">
             <h1>Metabolite Concentration Profiles</h1>
@@ -147,30 +149,10 @@ class Simulator extends React.Component {
               <h3 className="optionsTitle">Metabolites To Plot</h3>
               <div className="options">
                 <this.bigButton name="concentrationsGlcDC" checked={this.state.concentrationsGlcDC} displayName="Glucose (GLC)" />
-                {/* <BigButton name="concentrationsGlcDC" checked={this.state.concentrationsGlcDC} displayName="Glucose (GLC)" /> */}
               </div>
             </div>
             <this.plotOptions name="mcp" XAxis={this.state.mcpXAxis} YAxis={this.state.mcpYAxis} />
-            {/* <PlotOptions name="mcp" XAxis={this.state.mcpXAxis} YAxis={this.state.mcpYAxis} /> */}
-            {this.state.concentrationsGlcDC && (
-              <div className="chartSubContainers">
-                <ResponsiveContainer height={200}>
-                  <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }}>
-                    <XAxis dataKey="time" tickFormatter={number => DataFormaterTime(number)} scale={this.state.mcpXAxis}>
-                      <Label value="Time (hours)" offset={0} position="bottom" />
-                    </XAxis>
-                    <YAxis
-                      domain={['auto', 'auto']}
-                      label={{ value: 'Metabolite  Concentration  (mmol)', position: 'top', dx: 50, dy: -10 }}
-                      tickFormatter={number => DataFormaterY(number)}
-                      scale={this.state.mcpYAxis}
-                    />
-                    <Tooltip />
-                    <Line type="monotone" dataKey={'concentrationsGlcDC'} stroke="#8884d8" />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            )}
+            {this.state.concentrationsGlcDC && <this.mcpCharts name="concentrationsGlcDC" />}
           </div>
         </div>
 
@@ -185,50 +167,8 @@ class Simulator extends React.Component {
               </div>
             </div>
             <this.plotOptions name="rvp" XAxis={this.state.rvpXAxis} YAxis={this.state.rvpYAxis} />
-            {this.state.HEX1 && (
-              <div className="chartSubContainers">
-                <ResponsiveContainer height={200}>
-                  <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="velProfiles">
-                    <XAxis dataKey="time" tickFormatter={number => DataFormaterTime(number)} scale={this.state.rvpXAxis}>
-                      <Label value="Time (hours)" offset={0} position="bottom" />
-                    </XAxis>
-                    <YAxis
-                      allowDataOverflow={true}
-                      domain={['auto', 'auto']}
-                      label={{ value: 'Reaction Flux (mmol/hour)', position: 'top', dx: 50, dy: -10 }}
-                      type="number"
-                      yAxisId="1"
-                      tickFormatter={number => DataFormaterY(number)}
-                      scale={this.state.rvpYAxis}
-                    />
-                    <Tooltip />
-                    <Line yAxisId="1" type="monotone" dataKey={`HEX1`} stroke="#8884d8" />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            )}
-            {this.state.PYK && (
-              <div className="chartSubContainers">
-                <ResponsiveContainer height={200}>
-                  <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="velProfiles">
-                    <XAxis dataKey="time" tickFormatter={number => DataFormaterTime(number)} scale={this.state.rvpXAxis}>
-                      <Label value="Time (hours)" offset={0} position="bottom" />
-                    </XAxis>
-                    <YAxis
-                      allowDataOverflow={true}
-                      domain={['auto', 'auto']}
-                      label={{ value: 'Reaction Flux (mmol/hour)', position: 'top', dx: 50, dy: -10 }}
-                      type="number"
-                      yAxisId="2"
-                      tickFormatter={number => DataFormaterY(number)}
-                      scale={this.state.rvpYAxis}
-                    />
-                    <Tooltip />
-                    <Line yAxisId="2" type="monotone" dataKey={'PYK'} stroke="#82ca9d" />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            )}
+            {this.state.HEX1 && <this.rvpCharts name="HEX1" lineColor="green" />}
+            {this.state.PYK && <this.rvpCharts name="PYK" lineColor="blue" />}
           </div>
         </div>
       </div>
@@ -236,6 +176,53 @@ class Simulator extends React.Component {
   }
 
   // Components
+  mcpCharts = props => {
+    return (
+      <div className="chartSubContainers">
+        <ResponsiveContainer height={200}>
+          <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }}>
+            <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.mcpXAxis}>
+              <Label value="Time (hours)" offset={0} position="bottom" />
+            </XAxis>
+            <YAxis
+              domain={['auto', 'auto']}
+              label={{ value: 'Metabolite  Concentration  (mmol)', position: 'top', dx: 50, dy: -10 }}
+              tickFormatter={number => this.dataFormaterY(number)}
+              scale={this.state.mcpYAxis}
+            />
+            <Tooltip />
+            <Line type="monotone" dataKey={props.name} stroke="#8884d8" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    )
+  }
+
+  rvpCharts = props => {
+    return (
+      <div className="chartSubContainers">
+        <ResponsiveContainer height={200}>
+          <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="velProfiles">
+            <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.rvpXAxis}>
+              <Label value="Time (hours)" offset={0} position="bottom" />
+            </XAxis>
+            <YAxis
+              allowDataOverflow={true}
+              domain={['auto', 'auto']}
+              label={{ value: 'Reaction Flux (mmol/hour)', position: 'top', dx: 50, dy: -10 }}
+              type="number"
+              yAxisId="1"
+              tickFormatter={number => this.dataFormaterY(number)}
+              scale={this.state.rvpYAxis}
+            />
+            <Tooltip />
+            <Line yAxisId="1" type="monotone" dataKey={props.name} stroke={props.lineColor} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    )
+  }
+
   bigButton = props => {
     const ischecked = `this.state.${props.name}`
     console.log(props.checked)
@@ -249,7 +236,7 @@ class Simulator extends React.Component {
 
   plotOptions = props => {
     return (
-      <div className="chartContainers">
+      <div className="optionsContainers">
         <div>
           <h3 className="plotOptionsTitle">Plot Options</h3>
           <div className="plotOptions">
@@ -318,6 +305,8 @@ class Simulator extends React.Component {
   }
 
   // Actions
+
+  // Test Buttons
   submit(evt) {
     evt.preventDefault()
     const { dispatchFetchSimData } = this.props
@@ -340,20 +329,15 @@ class Simulator extends React.Component {
     })
   }
 
-  click(evt) {
-    const name = evt.target.name
-    const nameCheckBox = `${evt.target.name}CheckBox`
-    const value = evt.target.checked
-    const nextState = {}
-    const nextState2 = {}
-    nextState2[nameCheckBox] = !this.state.nameCheckBox
-    this.setState(nextState2)
-    if (value === true) {
-      nextState[name] = name
-    } else {
-      nextState[name] = ''
-    }
-    this.setState(nextState)
+  // Needed For Prod
+  dataFormaterTime = number => {
+    const newNumber = Math.round(number * 1) / 1
+    return newNumber
+  }
+
+  dataFormaterY = number => {
+    const newNumber = Math.round(number * 10000000) / 10000000
+    return newNumber
   }
 
   hidden(evt) {
@@ -371,6 +355,7 @@ class Simulator extends React.Component {
     const HEX1 = simDataRoot.simData.fluxHEX1
     const PYK = simDataRoot.simData.fluxPYK
     const concentrationsGlcDC = simDataRoot.simData.concentrationsGlcDC
+    // const computed = simDataRoot.simData.computed
     const data = []
     let i
     for (i = 0; i < time.length; i++) {
@@ -391,6 +376,7 @@ class Simulator extends React.Component {
   }
 }
 
+// REDUX Container Component
 const mapStateToProps = state => {
   return {
     simDataRoot: state.simDataRoot
