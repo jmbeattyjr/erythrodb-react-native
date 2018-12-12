@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader'
 
 import './header.css'
 
-import logo from './images/ErythroDBLight.svg'
+import logo from './images/newLogo.png'
 
 class Header extends React.Component {
   constructor(props) {

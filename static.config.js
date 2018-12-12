@@ -26,7 +26,7 @@ export default {
       },
       {
         path: '/bibliome',
-        component: 'src/components/bibliome4/Bibliome'
+        component: 'src/components/bibliome5/Bibliome'
       },
 
       {

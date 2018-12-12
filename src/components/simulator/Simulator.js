@@ -4,12 +4,16 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Label } fr
 //
 import randomColor from 'randomcolor'
 
+import Timer from 'react-compound-timer'
+
 //Material UI
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import PropTypes from 'prop-types'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import Clear from '@material-ui/icons/Clear'
 import Done from '@material-ui/icons/Done'
@@ -30,7 +34,8 @@ import Input from '@material-ui/core/Input'
 import './simulator.css'
 import { fetchSimData, fetchMetadata } from '../../lib/redux/entities/simulator/simulator.actions'
 
-import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup, TextField } from '@material-ui/core'
+import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup, TextField, Dialog, DialogTitle } from '@material-ui/core'
+// import { Loading } from 'react-static';
 
 class Simulator extends React.Component {
   componentDidMount() {
@@ -48,11 +53,6 @@ class Simulator extends React.Component {
       ratesYAxis: 'Linear',
       concentrationstoPlot: {},
       ratestoPlot: {},
-      kf_atp: 2,
-      kf_pfk: 3,
-      glc_pulse: 1,
-      t0: 4,
-      t_end: 5
     }
   }
 
@@ -88,126 +88,130 @@ class Simulator extends React.Component {
     }
     return (
       <div className="simulator-body">
-        <h1>SIMULATION SETUP</h1>
-        <div className="mainDashboard">
-          <div className="mainDashboard-leftSide">
-            <Card className="simInputs">
-              <CardContent>
-                <Typography component="h5" variant="h5" gutterBottom>
-                  INPUTS
-                </Typography>
-                <Typography component="h6" variant="h6" gutterBottom>
-                  Specify input values for the simulation
-                </Typography>
-                {inputs &&
-                  Object.entries(inputs).map(input => {
-                    var inputData = input[1]
-                    var inputJsonName = input[0].toString()
-                    return <this.inputParameters data={inputData} jsonName={inputJsonName} />
-                  })}
-              </CardContent>
-            </Card>
-            <Card className="parameters">
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  SIMULATION PARAMETERS
-                </Typography>
-                <Typography color="textSecondary" gutterBottom>
-                  General Simulation parameters and settings
-                </Typography>
-                <List>
-                  <ListItem>
-                    <FormControl className="border">
-                      <OutlinedInput
-                        id="input-with-icon-adornment"
-                        name="t0"
-                        value={this.state.name}
-                        onChange={this.handleChangeRadio.bind(this)}
-                        placeholder="Time Start"
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <Search fontSize="small" />
-                          </InputAdornment>
-                        }
-                      />
-                    </FormControl>
-                  </ListItem>
-                  <ListItem>
-                    <FormControl className="border">
-                      <OutlinedInput
-                        id="input-with-icon-adornment"
-                        name="t_end"
-                        value={this.state.name}
-                        onChange={this.handleChangeRadio.bind(this)}
-                        placeholder="Time End"
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <Search fontSize="small" />
-                          </InputAdornment>
-                        }
-                      />
-                    </FormControl>
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
+        <div className="mainDashboardAll">
+          <h1>BIOSIMULATION</h1>
+          <div className="mainDashboard">
+            <div className="mainDashboard-leftSide">
+              <Card className="simInputs">
+                <CardContent>
+                  <Typography component="h5" variant="h5" gutterBottom>
+                    INPUTS
+                  </Typography>
+                  <Typography component="h6" variant="h6" gutterBottom>
+                    Specify input values for the simulation
+                  </Typography>
+                  {inputs &&
+                    Object.entries(inputs).map(input => {
+                      var inputData = input[1]
+                      var inputJsonName = input[0].toString()
+                      return <this.inputParameters data={inputData} jsonName={inputJsonName} />
+                    })}
+                </CardContent>
+              </Card>
+              <Card className="parameters">
+                <CardContent>
+                  <Typography color="textSecondary" gutterBottom>
+                    SIMULATION PARAMETERS
+                  </Typography>
+                  <Typography color="textSecondary" gutterBottom>
+                    General Simulation parameters and settings
+                  </Typography>
+                  <List>
+                    <ListItem>
+                      <FormControl className="border">
+                        <OutlinedInput
+                          id="input-with-icon-adornment"
+                          name="t0"
+                          value={this.state.name}
+                          onChange={this.handleChangeRadio.bind(this)}
+                          placeholder="Time Start"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <Search fontSize="small" />
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                    </ListItem>
+                    <ListItem>
+                      <FormControl className="border">
+                        <OutlinedInput
+                          id="input-with-icon-adornment"
+                          name="t_end"
+                          value={this.state.name}
+                          onChange={this.handleChangeRadio.bind(this)}
+                          placeholder="Time End"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <Search fontSize="small" />
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                    </ListItem>
+                  </List>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="mainDashboard-rightSide">
+              <Card className="parameters">
+                <CardContent>
+                  <Typography component="h5" variant="h5" gutterBottom>
+                    OUTPUTS
+                  </Typography>
+                  <Typography component="h6" variant="h6" gutterBottom>
+                    Select the outputs below that should be included in the simulation.
+                  </Typography>
+                  <Typography gutterBottom>Concentrations</Typography>
+                  {concentrations &&
+                    concentrations.map(input => {
+                      return <this.outputParametersConcentrations data={input} />
+                    })}
+                  <Typography gutterBottom>Rates</Typography>
+                  {rates &&
+                    rates.map(input => {
+                      return <this.outputParametersRates data={input} />
+                    })}
+                </CardContent>
+              </Card>
+            </div>
           </div>
-          <div className="mainDashboard-rightSide">
-            <Card className="parameters">
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  OUTPUTS
-                </Typography>
-                <Typography color="textSecondary" gutterBottom>
-                  Select the outputs below that should be included in the simulation.
-                </Typography>
-                <Typography color="textSecondary" gutterBottom>
-                  Concentrations
-                </Typography>
-                {concentrations &&
-                  concentrations.map(input => {
-                    return <this.outputParametersConcentrations data={input} />
-                  })}
-                <Typography color="textSecondary" gutterBottom>
-                  Rates
-                </Typography>
-                {rates &&
-                  rates.map(input => {
-                    return <this.outputParametersRates data={input} />
-                  })}
-              </CardContent>
-            </Card>
+          <Button variant="contained" size="large" id="simButton" onClick={this.submit.bind(this)}>
+            SIMULATE
+          </Button>
+        </div>
+
+        <div className={this.state.hasUpdated ? 'simulationsContainer' : 'hidden'}>
+          {/* <div className="simulationsContainer"> */}
+          <h1>VISUALIZATION</h1>
+          <div className="chartContainers">
+            <div className="chartSubContainers">
+              <this.concentrationsCharts />
+            </div>
+            <div className="selectionPane">
+              <Card className="parameters">
+                <CardContent>
+                  {/* <Typography gutterBottom>PLOT OPTIONS</Typography> */}
+                  <this.concentrationsplotOptions name="concentration" XAxis="concentrationXAxis" YAxis="concentrationYAxis" />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          <div className="chartContainers">
+            <div className="chartSubContainers">
+              <this.ratesCharts />
+            </div>
+            <div className="selectionPane">
+              <Card className="parameters">
+                <CardContent>
+                  {/* <Typography gutterBottom>PLOT OPTIONS</Typography> */}
+                  <this.ratesplotOptions name="rates" XAxis="ratesXAxis" YAxis="ratesYAxis" />
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
-        <Button variant="contained" size="large" id="simButton" onClick={this.submit.bind(this)}>
-          SIMULATE
-        </Button>
-        <div className="chartContainers">
-          <div className="chartSubContainers">
-            <this.concentrationsCharts />
-          </div>
-          <div className="selectionPane">
-            <Card className="parameters">
-              <CardContent>
-                {/* <Typography gutterBottom>PLOT OPTIONS</Typography> */}
-                <this.concentrationsplotOptions name="concentration" XAxis="concentrationXAxis" YAxis="concentrationYAxis" />
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-        <div className="chartContainers">
-          <div className="chartSubContainers">
-            <this.ratesCharts />
-          </div>
-          <div className="selectionPane">
-            <Card className="parameters">
-              <CardContent>
-                {/* <Typography gutterBottom>PLOT OPTIONS</Typography> */}
-                <this.ratesplotOptions name="rates" XAxis="ratesXAxis" YAxis="ratesYAxis" />
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+        <SimpleDialog open={this.props.simDataRoot.simisFetching} onClose={this.handleClose} />
       </div>
     )
   }
@@ -222,42 +226,35 @@ class Simulator extends React.Component {
   inputParameters = data => {
     const props = data.data
 
-    const jsonName = this.state[data.jsonName]
+    const jsonName = this.state[props.name]
     return (
       <div className="input-box">
         <Typography gutterBottom>{props.name}</Typography>
         <Typography gutterBottom>{props.description}</Typography>
-        <FormControl>
-          <List>
-            <ListItem style={{ padding: 0 }}>
-              <ListItemIcon>
-                {!jsonName && <Clear style={{ color: 'red' }} />}
-                {jsonName && <Done style={{ color: '#28FF49' }} />}
-              </ListItemIcon>
-              <Input id={data.jsonName} type="phone" name={props.name} value={this.state.name} onChange={this.handleChange.bind(this)} />
-              <ListItemText primary={props.unit} />
-              <TextField
-                error
-                id="standard-error"
-                label="Error"
-                defaultValue="Hello World"
-                margin="normal"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      {!jsonName && <Clear style={{ color: 'red' }} />}
-                      {jsonName && <Done style={{ color: '#28FF49' }} />}
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </ListItem>
-            {!jsonName && (
-              <FormHelperText id="component-helper-text">
-                Input must be between {props.min} and {props.max}
-              </FormHelperText>
-            )}
-          </List>
+        <FormControl margin="dense">
+          <TextField
+            id={data.jsonName}
+            type="phone"
+            name={props.name}
+            value={this.state.name}
+            onChange={this.handleChange.bind(this)}
+            margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {!jsonName && jsonName != null && <Clear style={{ color: 'red' }} />}
+                  {jsonName && <Done style={{ color: '#28FF49' }} />}
+                </InputAdornment>
+              )
+            }}
+          />
+
+          {!jsonName && (
+            <FormHelperText id="component-helper-text">
+              Input must be between {props.min} and {props.max}
+            </FormHelperText>
+          )}
+          {jsonName && <FormHelperText id="component-helper-text" />}
         </FormControl>
       </div>
     )
@@ -279,12 +276,8 @@ class Simulator extends React.Component {
           <Checkbox onChange={this.concentrationsCheckbox(data.data.id)} value={data.data.id} />
         </MuiThemeProvider>
         <div className="output-box_des">
-          <Typography color="textSecondary" gutterBottom>
-            {data.data.name}
-          </Typography>
-          <Typography color="textSecondary" gutterBottom>
-            {data.data.description}
-          </Typography>
+          <Typography gutterBottom>{data.data.name}</Typography>
+          <Typography gutterBottom>{data.data.description}</Typography>
         </div>
       </div>
     )
@@ -306,12 +299,8 @@ class Simulator extends React.Component {
           <Checkbox onChange={this.ratesCheckbox(data.data.id)} value={data.data.id} />
         </MuiThemeProvider>
         <div className="output-box_des">
-          <Typography color="textSecondary" gutterBottom>
-            {data.data.name}
-          </Typography>
-          <Typography color="textSecondary" gutterBottom>
-            {data.data.description}
-          </Typography>
+          <Typography gutterBottom>{data.data.name}</Typography>
+          <Typography gutterBottom>{data.data.description}</Typography>
         </div>
       </div>
     )
@@ -379,29 +368,27 @@ class Simulator extends React.Component {
     const concentrationstoPlot = this.state.concentrationstoPlot
     const color = randomColor()
     return (
-      <div className="chartSubContainers">
-        <ResponsiveContainer height={200}>
-          <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
-            <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.concentrationXAxis}>
-              <Label value="Time (hours)" offset={0} position="bottom" />
-            </XAxis>
-            <YAxis
-              domain={['auto', 'auto']}
-              label={{ value: 'Metabolite  Concentration  (mmol)', position: 'top', dx: 50, dy: -10 }}
-              tickFormatter={number => this.dataFormaterY(number)}
-              scale={this.state.concentrationYAxis}
-            />
-            <Tooltip />
-            {concentrationstoPlot &&
-              Object.entries(concentrationstoPlot).map(input => {
-                //console.log(input)
-                if (input[1] === true) {
-                  return <Line type="monotone" dataKey={input[0]} stroke={color} />
-                }
-              })}
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      <ResponsiveContainer height={300}>
+        <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
+          <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.concentrationXAxis}>
+            <Label value="Time (hours)" offset={0} position="bottom" />
+          </XAxis>
+          <YAxis
+            domain={['auto', 'auto']}
+            label={{ value: 'Concentration  (mmol)', position: 'left', angle: -90, dx: -10, dy: -70 }}
+            tickFormatter={number => this.dataFormaterY(number)}
+            scale={this.state.concentrationYAxis}
+          />
+          <Tooltip />
+          {concentrationstoPlot &&
+            Object.entries(concentrationstoPlot).map(input => {
+              //console.log(input)
+              if (input[1] === true) {
+                return <Line type="monotone" dataKey={input[0]} stroke={color} />
+              }
+            })}
+        </LineChart>
+      </ResponsiveContainer>
     )
   }
 
@@ -409,29 +396,27 @@ class Simulator extends React.Component {
     const ratestoPlot = this.state.ratestoPlot
     const color = randomColor()
     return (
-      <div className="chartSubContainers">
-        <ResponsiveContainer height={200}>
-          <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
-            <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.ratesXAxis}>
-              <Label value="Time (hours)" offset={0} position="bottom" />
-            </XAxis>
-            <YAxis
-              domain={['auto', 'auto']}
-              label={{ value: 'Flux (mmol/hour)', position: 'top', dx: 50, dy: -10 }}
-              tickFormatter={number => this.dataFormaterY(number)}
-              scale={this.state.ratesYAxis}
-            />
-            <Tooltip />
-            {ratestoPlot &&
-              Object.entries(ratestoPlot).map(input => {
-                //console.log(input)
-                if (input[1] === true) {
-                  return <Line type="monotone" dataKey={input[0]} stroke={color} />
-                }
-              })}
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      <ResponsiveContainer height={300}>
+        <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
+          <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.ratesXAxis}>
+            <Label value="Time (hours)" offset={0} position="bottom" />
+          </XAxis>
+          <YAxis
+            domain={['auto', 'auto']}
+            label={{ value: 'Flux (mmol/hour)', position: 'left', angle: -90, dx: -10, dy: -50 }}
+            tickFormatter={number => this.dataFormaterY(number)}
+            scale={this.state.ratesYAxis}
+          />
+          <Tooltip />
+          {ratestoPlot &&
+            Object.entries(ratestoPlot).map(input => {
+              //console.log(input)
+              if (input[1] === true) {
+                return <Line type="monotone" dataKey={input[0]} stroke={color} />
+              }
+            })}
+        </LineChart>
+      </ResponsiveContainer>
     )
   }
 
@@ -575,7 +560,7 @@ class Simulator extends React.Component {
       }
     } else {
       const name = data.name
-      const value = false
+      const value = null
       const nextState = {}
       nextState[name] = value
       this.setState(nextState)
@@ -794,3 +779,69 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Simulator)
+
+class SimpleDialog extends React.Component {
+  handleClose = () => {
+    this.props.onClose(this.props.selectedValue)
+  }
+
+  handleListItemClick = value => {
+    this.props.onClose(value)
+  }
+
+  render() {
+    const { classes, onClose, selectedValue, ...other } = this.props
+
+    return (
+      <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
+        <div className="progress">
+          <DialogTitle id="simple-dialog-title">Running Simulation</DialogTitle>
+          <h6/>
+          <CircularDeterminate />
+          <h6 />
+          <Timer>
+            <Timer.Minutes /> Minutes <Timer.Seconds /> Seconds
+          </Timer>
+          <h1 />
+        </div>
+      </Dialog>
+    )
+  }
+}
+
+SimpleDialog.propTypes = {
+  classes: PropTypes.object.isRequired,
+  onClose: PropTypes.func,
+  selectedValue: PropTypes.string
+}
+
+class CircularDeterminate extends React.Component {
+  state = {
+    completed: 0
+  }
+
+  componentDidMount() {
+    this.timer = setInterval(this.progress, 20)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer)
+  }
+
+  progress = () => {
+    const { completed } = this.state
+    this.setState({ completed: completed >= 100 ? 0 : completed + 1 })
+  }
+
+  render() {
+    return (
+      <div className="circle">
+        <CircularProgress variant="determinate" value={this.state.completed} />
+      </div>
+    )
+  }
+}
+
+CircularDeterminate.propTypes = {
+  classes: PropTypes.object.isRequired
+}

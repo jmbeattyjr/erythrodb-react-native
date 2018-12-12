@@ -84,7 +84,7 @@
 .body-navigation__item,
 .body-navigation__item:visited {
   display: inline-block;
-  width: 400px;
+  width: 300px;
   min-height: 350px;
   /* height: 45vw; */
   /* max-height: 60vh; */
@@ -93,9 +93,9 @@
   vertical-align: top;
   text-decoration: none;
   color: black;
-  border: 2px solid black;
-  border-radius: 5px;
-  box-shadow: 5px 5px 5px black
+  /* border: 2px solid black; */
+  /* border-radius: 5px; */
+  /* box-shadow: 2px 2px 2px grey */
 }
 
 .body-navigation__item h1,

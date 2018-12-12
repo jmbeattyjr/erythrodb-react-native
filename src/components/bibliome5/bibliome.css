@@ -1,0 +1,19 @@
+#bibliomeContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  min-height: 70vh;
+}
+
+#tableContainer {
+  display: inline-block;
+  justify-self: center;
+  align-self: center;
+  justify-content: center;
+  align-content: center;
+  margin: 2vh 0 2vh 0;
+  height: 70vh;
+  width: 80vw;
+  overflow: scroll;
+}
+
