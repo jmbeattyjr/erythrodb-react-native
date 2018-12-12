@@ -1,15 +1,97 @@
 .simulator-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     min-height: 80vh;
 }
 
-.chartContainers {
+.checkBox {
+    background-color: red;
+}
+
+#simButton {
+    max-width: 300px;
+    align-self: center;
+    justify-self: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    background-color: #9D0202;
+}
+
+.mainDashboard {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
+    padding: 2vw;
     justify-content: center;
     align-content: flex-start;
-    border: 5px grey solid;
-    border-radius: 2vh;
+    flex-wrap: wrap
+}
+
+.mainDashboard-leftSide {
+    display: flex;
+    flex-direction: column;
+    padding: 2vw;
+    justify-content: space-between;
+    align-content: space-between;
+    max-width: 45vw;
+}
+
+.mainDashboard-rightSide {
+    display: flex;
+    flex-direction: column;
+    padding: 2vw;
+    /* justify-content: center; */
+    /* align-content: center; */
+    /* max-width: 45vw; */
+}
+
+#input-with-icon-adornment {
+    padding: 5px;
+    font-size: 16px
+}
+
+.border {
+   width: 100%;
+   height: 100%;
+}
+.input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    padding: 1vw;
+}
+
+ .output-box {
+     display: flex;
+     flex-direction: row
+ }
+
+ .output-box_des {
+     display: flex;
+     flex-direction: column;
+     padding: 1vw 0;
+ }
+
+.input-inputRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+}
+
+.chartContainers {
+    display: inline-flex;
+    width: 96vw;
+    /* flex-wrap: wrap; */
+    /* flex-direction: row; */
+    /* justify-content: center; */
+    /* align-content: center; */
+    /* border: 5px grey solid; */
+    /* border-radius: 2vh; */
     margin: 2vw;
 }
 
@@ -19,16 +101,22 @@
     flex-direction: row;
     justify-content: center;
     align-content: flex-start;
+    border-bottom: 1px solid black;
+    width: 100%;
 }
 
 .chartSubContainers {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    align-content: flex-start;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* flex-direction: row; */
+    /* justify-content: center; */
+    /* align-content: flex-start; */
     height: 100%;
-    padding: 2vh 0;
+    width: 80%;
+    min-width: 20vw;
+    max-width: 90vw;
+    padding: 4vh 2vw;
+    margin: 0;
 }
 
 #metaboliteConcetration {
@@ -44,6 +132,20 @@
 
 }
 
+.radioGroup {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.radioButton {
+    /* height: 100%; */
+    /* width: 100%; */
+}
+.checkBox {
+    background-color: red;
+}
+
 .buttonRow {
     display: flex;
     margin: 5px;
@@ -54,21 +156,13 @@ h1 {
 }
 
 h3 {
-    text-align: center;
-}
-
-h4 {
-    margin: .5vh;
-    line-height: 1vh;
-    height: 1vh;
-    vertical-align: center;
+    align-self: center;
+    padding: 0 1vw;
 }
 
 p {
-    text-align: center;
-    /* vertical-align: center; */
+    height: 100%;
     margin: 0;
-    font-size: 100%
 }
 
 .optionsTitle {
@@ -92,15 +186,28 @@ p {
 
 .plotOptions {
     display: flex;
-    /* flex-direction: row; */
+    flex-direction: column;
     align-content: center;
     justify-content: center;
-    align-self: center;
+    /* align-self: center; */
+    /* justify-content: center; */
+    /* min-width: 30vw;
+    max-width: 50vw; */
+    /* margin: 10px; */
+    /* border: 2px black solid; */
+}
+
+.plotOptions-row {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
     justify-content: center;
-    min-width: 30vw;
-    max-width: 50vw;
-    margin: 10px;
-    border: 2px black solid;
+}
+
+.axisLabel {
+    display: flex;
+    height: 100%;
+    vertical-align: middle;
 }
 
 .plotOptions2 {
@@ -120,6 +227,8 @@ p {
     /* border: 2px black solid; */
     padding: 3px;
     margin: 5px;
+    height: 100%;
+    width: 100%;
 }
 
 .recharts-surface {
@@ -145,7 +254,10 @@ p {
 
 .selectionPane {
     height: 100%;
-    padding: 2vh 0;
+    width: 100%;
+    max-width: 40vw;
+    /* padding: 2vh 0; */
+    margin: 0;
 }
 
 #testChart {
@@ -167,4 +279,9 @@ form {
     margin: 1.5vh;
     height: 100%;
     width: 100%;
+}
+
+.simInputs,
+.parameters {
+    margin-bottom: 2vh;
 }

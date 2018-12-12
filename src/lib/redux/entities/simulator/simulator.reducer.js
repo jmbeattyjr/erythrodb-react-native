@@ -1,32 +1,60 @@
-import { simDataActions } from './simulator.actions'
+import { dataActions } from './simulator.actions'
 
 const initalState = {
-  isFetching: false,
-  hasFetched: false,
+  metaisFetching: false,
+  metahasFetched: false,
+  simisFetching: false,
+  simhasFetched: false,
   simData: [],
+  metadata: {
+    concentrations: [],
+    rates: [],
+  },
   error: null
 }
 
 export default (prevState = initalState, action) => {
   switch (action.type) {
-    case simDataActions.FETCH_SIMDATA_REQUEST: {
+    case dataActions.FETCH_SIMDATA_REQUEST: {
       const nextState = Object.assign({}, prevState, {
-        isFetching: true
+        simisFetching: true
       })
       return nextState
     }
-    case simDataActions.FETCH_SIMDATA_SUCCESS: {
+    case dataActions.FETCH_SIMDATA_SUCCESS: {
       const nextState = Object.assign({}, prevState, {
-        isFetching: false,
-        hasFetched: true,
+        simisFetching: false,
+        simhasFetched: true,
         simData: action.simData,
         error: null
       })
       return nextState
     }
-    case simDataActions.FETCH_SIMDATA_REJECT: {
+    case dataActions.FETCH_SIMDATA_REJECT: {
       const nextState = Object.assign({}, prevState, {
-        isFetching: false,
+        simisFetching: false,
+        error: action.error
+      })
+      return nextState
+    }
+    case dataActions.FETCH_METADATA_REQUEST: {
+      const nextState = Object.assign({}, prevState, {
+        metaisFetching: true
+      })
+      return nextState
+    }
+    case dataActions.FETCH_METADATA_SUCCESS: {
+      const nextState = Object.assign({}, prevState, {
+        metaisFetching: false,
+        metahasFetched: true,
+        metadata: action.metadata,
+        error: null
+      })
+      return nextState
+    }
+    case dataActions.FETCH_METADATA_REJECT: {
+      const nextState = Object.assign({}, prevState, {
+        metaisFetching: false,
         error: action.error
       })
       return nextState

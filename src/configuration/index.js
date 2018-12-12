@@ -1,7 +1,7 @@
 
 const config = {
   gateway: {
-    host: process.env.REACT_APP_GATEWAY_URL || "http://localhost",
+    host: process.env.REACT_APP_GATEWAY_URL || "https://api.biosimulate.org",
     port: process.env.REACT_APP_GATEWAY_PORT || 9001,
     path: process.env.REACT_APP_GATEWAY_PATH || ""
   },
@@ -12,7 +12,7 @@ const config = {
   // }
 };
 
-config.gateway.baseUrl = `${config.gateway.host}:${config.gateway.port}${
+config.gateway.baseUrl = `${config.gateway.host}${
   config.gateway.path
 }`;
 
