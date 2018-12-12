@@ -2,12 +2,17 @@
 
 
 .main-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
   background: #a36a6a25;
 }
 
 .main-header__logo-container {
   display: inline-block;
-  width: 30vw;
+  max-width: 350px;
   vertical-align: middle;
   margin: 0;
   padding: 2vw;
@@ -15,27 +20,31 @@
 
 
 .main-header__logo {
-  width: 25vw;
+  width: 350px;
   padding: 0 0 0 0;
 }
 
 
 .main-header__nav {
-  display: inline-block;
-  text-align: right;
-  vertical-align: middle;
-  width: 60vw;
-  margin: 0 1.5vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-self: flex-end;
+  /* text-align: right; */
+  /* vertical-align: middle; */
+  width: 600px;
+  max-width: 80%;
+  margin: 20px 20px;
   height: 100%;
 }
 
 .main-header__nav a {
   display: inline-block;
   color: black;
-  padding: 4px;
-  margin: 0 1vw;
+  padding: 5px;
+  margin: 0 5px;
   text-decoration: none;
-  font-size: 2.1vw;
+  font-size: 20px;
   font-weight: bold;
 }
 

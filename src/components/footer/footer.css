@@ -1,29 +1,31 @@
 .main-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   width: 100vw;
   min-height: 10vh;
   /* background: linear-gradient( #000000, url('./images/ErythroDBLight.svg')) center / cover; */
-  background: black
+  background: black;
 }
 
-.main-footer h1 {
+.main-footer h4 {
   color: white;
-  font-size: 1.1vw;
 }
 
 .main-footer__left {
   display: inline-block;
-  width: 45vw;
+  max-width: 600px;
   max-height: 100%;
-  margin: 0 0 0 0;
-  padding: 2vw 0 2vw 2vw;
+  margin: 0 10px 0 10px;
+  /* padding: 2vw 0 2vw 2vw; */
   vertical-align: top;
 }
 
 .main-footer__right {
   display: inline-block;
-  width: 45vw;
+  max-width: 600px;
   max-height: 100%;
-  margin: 0 0 0 5vw;
-  padding: 2vw 0 2vw 2vw;
+  margin: 0 10px 0 10px;
+  /* padding: 2vw 0 2vw 2vw; */
   vertical-align: top;
 }

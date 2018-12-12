@@ -30,7 +30,7 @@ import Input from '@material-ui/core/Input'
 import './simulator.css'
 import { fetchSimData, fetchMetadata } from '../../lib/redux/entities/simulator/simulator.actions'
 
-import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup } from '@material-ui/core'
+import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup, TextField } from '@material-ui/core'
 
 class Simulator extends React.Component {
   componentDidMount() {
@@ -236,6 +236,21 @@ class Simulator extends React.Component {
               </ListItemIcon>
               <Input id={data.jsonName} type="phone" name={props.name} value={this.state.name} onChange={this.handleChange.bind(this)} />
               <ListItemText primary={props.unit} />
+              <TextField
+                error
+                id="standard-error"
+                label="Error"
+                defaultValue="Hello World"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      {!jsonName && <Clear style={{ color: 'red' }} />}
+                      {jsonName && <Done style={{ color: '#28FF49' }} />}
+                    </InputAdornment>
+                  )
+                }}
+              />
             </ListItem>
             {!jsonName && (
               <FormHelperText id="component-helper-text">
@@ -636,7 +651,7 @@ class Simulator extends React.Component {
       inputs: inputs,
       time: {
         t0: Number(this.state.t0),
-        t_end: Number(this.state.t_end),
+        t_end: Number(this.state.t_end)
       },
       desired_outputs: {
         concentrations: concentrations,

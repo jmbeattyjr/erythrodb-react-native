@@ -47,11 +47,11 @@ class Home extends React.Component {
         <div className="closing-banner">
           <div className="closing-banner__left">
             <h1 className="closing-banner__left-title">{this.props.home.closingBannerLeft.title}</h1>
-            <h2 className="closing-banner__left-body">{this.props.home.closingBannerLeft.body}</h2>
+            <h3 className="closing-banner__left-body">{this.props.home.closingBannerLeft.body}</h3>
           </div>
           <div className="closing-banner__right">
             <h1 className="closing-banner__right-title">{this.props.home.closingBannerRight.title}</h1>
-            <h2 className="closing-banner__right-body">{this.props.home.closingBannerRight.body}</h2>
+            <h3 className="closing-banner__right-body">{this.props.home.closingBannerRight.body}</h3>
             <h4 className="closing-banner__right-cite">{this.props.home.closingBannerRight.cite}</h4>
           </div>
         </div>

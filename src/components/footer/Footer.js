@@ -15,13 +15,13 @@ class Footer extends React.Component {
     return (
       <div className="main-footer">
         <div className="main-footer__left">
-          <h1>&#9400; 2017 Regents of the University of California. All Rights Reserved.</h1>
+          <h4>&#9400; 2017 Regents of the University of California. All Rights Reserved.</h4>
         </div>
         <div className="main-footer__right">
-          <h1>
+          <h4>
             ErythroDB is distributed under the MIT license. Currently only Google Chrome is fully supported with the ErythroDB Map; we are working to
             also support the latest versions of Firefox, Internet Explorer, and Safari.
-          </h1>
+          </h4>
         </div>
       </div>
     )
