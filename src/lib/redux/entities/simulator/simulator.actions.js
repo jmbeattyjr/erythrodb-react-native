@@ -1,5 +1,6 @@
 import { get, post } from '../../../../utils/api'
 import config from '../../../../configuration/index'
+import { object } from 'prop-types'
 
 export const dataActions = {
   FETCH_SIMDATA_REQUEST: 'FETCH_SIMDATA_REQUEST',
@@ -55,20 +56,16 @@ const fetchMetadataReject = error => {
 
 export const fetchMetadata = () => {
   return dispatch => {
-    console.log('Fetching MetaData')
     dispatch(fetchMetadataRequest())
     get({
       path: `${config.gateway.baseUrl}/metadata`
     }).then(responseMetadata => {
-      console.log('MetaDataFetched')
-      console.log(responseMetadata)
       dispatch(fetchMetadataSuccess(responseMetadata))
     })
   }
 }
 
 export const fetchSimData = data => {
-  console.log(data)
   return dispatch => {
     dispatch(fetchSimDataRequest())
     post({
@@ -76,13 +73,37 @@ export const fetchSimData = data => {
       body: data
     })
       .then(responseSimData => {
-        console.log(responseSimData)
-        const fluxHEX1 = responseSimData.flux.HEX1
-        // const fluxPYK = responseSimData.flux.PYK
-        const time = responseSimData.time
-        const GLC = responseSimData.concentrations.glc__D_c
-        // const computed = responseSimData.computed.glc__D_c/HEX1*0.5
-        dispatch(fetchSimDataSuccess({ time: time, fluxHEX1: fluxHEX1, GLC: GLC }))
+        const flux = Object.entries(responseSimData.flux)
+        const concentrations = Object.entries(responseSimData.concentrations)
+        const computed = Object.entries(responseSimData.computed)
+        const timeData = responseSimData.time
+        
+        let prevObject = {}
+        let i
+
+        filterData(flux)
+        filterData(concentrations)
+        filterData(computed)
+        buildObject(prevObject, "time", timeData)
+
+        function filterData(input) {
+          for (i = 0; i < input.length; i++) {
+            console.log('-------------HERE----------------')
+            const working = input[i]
+            const name = working[0]
+            const data = working[1]
+            const workingObject = prevObject
+            buildObject(workingObject, name, data)
+          }
+        }
+
+        function buildObject(workingObject, name, data) {
+          const newObject = Object.assign({}, workingObject, {
+            [name]: data
+          })
+          prevObject = newObject
+        }
+        dispatch(fetchSimDataSuccess(prevObject))
       })
       .catch(err => {
         dispatch(fetchSimDataReject(err))

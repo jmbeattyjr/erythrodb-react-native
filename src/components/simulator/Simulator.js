@@ -60,9 +60,7 @@ class Simulator extends React.Component {
 
   render() {
     console.log(this.state)
-    //console.log(this.props)
     const { simDataRoot } = this.props
-
     console.log(simDataRoot)
 
     if (
@@ -73,7 +71,7 @@ class Simulator extends React.Component {
       this.props.simDataRoot.simisFetching === false &&
       !this.props.simDataRoot.error
     ) {
-      this.initalData(simDataRoot)
+      this.initalData(simDataRoot.simData)
     }
 
     let concentrations
@@ -218,7 +216,6 @@ class Simulator extends React.Component {
   // Material UI Components
 
   ratesLines = data => {
-    //console.log(data)
     return <Line type="monotone" dataKey="GLC" stroke="#8884d8" />
   }
 
@@ -272,7 +269,7 @@ class Simulator extends React.Component {
     return (
       <div className="output-box">
         <MuiThemeProvider theme={outerTheme}>
-          <Checkbox onChange={this.concentrationsCheckbox(data.data.id)} value={data.data.id} />
+          <Checkbox onChange={this.concentrationsCheckbox(data.data.variable)} value={data.data.id} />
         </MuiThemeProvider>
         <div className="output-box_des">
           <Typography gutterBottom>{data.data.name}</Typography>
@@ -295,7 +292,7 @@ class Simulator extends React.Component {
     return (
       <div className="output-box">
         <MuiThemeProvider theme={outerTheme}>
-          <Checkbox onChange={this.ratesCheckbox(data.data.id)} value={data.data.id} />
+          <Checkbox onChange={this.ratesCheckbox(data.data.variable)} value={data.data.id} />
         </MuiThemeProvider>
         <div className="output-box_des">
           <Typography gutterBottom>{data.data.name}</Typography>
@@ -322,7 +319,8 @@ class Simulator extends React.Component {
     const ratescheckedValue = this.state.ratestoPlot[name]
     const arrayToObject = array =>
       array.reduce((obj, item) => {
-        obj[item.id] = item
+        console.log(item)
+        obj[item.variable] = item
         return obj
       }, {})
 
@@ -331,8 +329,6 @@ class Simulator extends React.Component {
 
     const hydratedConcentration = concentrationsObject[data.data[0]]
     const hydratedRates = ratesObject[data.data[0]]
-    //console.log(data.data[0])
-    //console.log(hydratedConcentration)
 
     if (hydratedConcentration) {
       if (!this.state.concentrationsInitialCheck) {
@@ -352,7 +348,6 @@ class Simulator extends React.Component {
     }
     if (hydratedRates) {
       const defaultChecked = this.state.ratestoPlot[name]
-      console.log(defaultChecked)
       return (
         <div className="output-box">
           <MuiThemeProvider theme={outerTheme}>
@@ -371,9 +366,6 @@ class Simulator extends React.Component {
   // Components
   concentrationsCharts = props => {
     const concentrationstoPlot = this.state.concentrationstoPlot
-    const color = randomColor()
-    const top = 'dataMax*1.5'
-    const bottom = 'dataMin*.5'
     return (
       <ResponsiveContainer height={this.state.concentrationsPlotHeight}>
         <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
@@ -389,8 +381,8 @@ class Simulator extends React.Component {
           <Tooltip />
           {concentrationstoPlot &&
             Object.entries(concentrationstoPlot).map(input => {
-              //console.log(input)
               if (input[1] === true) {
+                const color = randomColor()
                 return <Line type="monotone" dataKey={input[0]} stroke={color} />
               }
             })}
@@ -401,7 +393,7 @@ class Simulator extends React.Component {
 
   ratesCharts = props => {
     const ratestoPlot = this.state.ratestoPlot
-    const color = randomColor()
+    
     return (
       <ResponsiveContainer height={this.state.ratesPlotHeight}>
         <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
@@ -417,8 +409,8 @@ class Simulator extends React.Component {
           <Tooltip />
           {ratestoPlot &&
             Object.entries(ratestoPlot).map(input => {
-              //console.log(input)
               if (input[1] === true) {
+                const color = randomColor()
                 return <Line type="monotone" dataKey={input[0]} stroke={color} />
               }
             })}
@@ -429,7 +421,6 @@ class Simulator extends React.Component {
 
   bigButton = props => {
     const ischecked = `this.state.${props.name}`
-    // //console.log(props.checked)
     return (
       <div className="buttonRow">
         <input name={props.name} type="checkbox" onChange={this.hidden.bind(this)} checked={props.checked} />
@@ -440,7 +431,6 @@ class Simulator extends React.Component {
 
   concentrationsplotOptions = props => {
     const selectedConcentrations = this.state.selectedConcentrations
-    console.log(props)
     return (
       <div>
         <div className="optionsContainers">
@@ -449,30 +439,34 @@ class Simulator extends React.Component {
             <div className="plotOptions">
               <div className="plotOptions-row">
                 <h3>X Axis</h3>
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.XAxis}
-                  value={this.state[props.XAxis]}
-                  onChange={this.handleChangeRadio}
-                  class="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                <div className="radioGroup">
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.XAxis}
+                    value={this.state[props.XAxis]}
+                    onChange={this.handleChangeRadio}
+                    class="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
+                </div>
               </div>
 
               <div className="plotOptions-row">
                 <h3>Y Axis</h3>
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.YAxis}
-                  value={this.state[props.YAxis]}
-                  onChange={this.handleChangeRadio}
-                  class="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                <div className="radioGroup">
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.YAxis}
+                    value={this.state[props.YAxis]}
+                    onChange={this.handleChangeRadio}
+                    class="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
+                </div>
               </div>
               <div className="plotHeightSelect">
                 <FormControl>
@@ -498,6 +492,7 @@ class Simulator extends React.Component {
             <h3 className="plotOptionsTitle">SIGNALS TO PLOT</h3>
             {selectedConcentrations &&
               Object.entries(selectedConcentrations).map(input => {
+                console.log(input)
                 if (input[1] === true) {
                   return <this.signalsToPlot data={input} />
                 }
@@ -510,7 +505,6 @@ class Simulator extends React.Component {
 
   ratesplotOptions = props => {
     const ratesSelected = this.state.ratesSelected
-    console.log(props)
     return (
       <div>
         <div className="optionsContainers">
@@ -519,30 +513,34 @@ class Simulator extends React.Component {
             <div className="plotOptions">
               <div className="plotOptions-row">
                 <h3>X Axis</h3>
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.XAxis}
-                  value={this.state[props.XAxis]}
-                  onChange={this.handleChangeRadio}
-                  class="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                <div className="radioGroup">
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.XAxis}
+                    value={this.state[props.XAxis]}
+                    onChange={this.handleChangeRadio}
+                    class="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
+                </div>
               </div>
 
               <div className="plotOptions-row">
                 <h3>Y Axis</h3>
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.YAxis}
-                  value={this.state[props.YAxis]}
-                  onChange={this.handleChangeRadio}
-                  class="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                <div className="radioGroup">
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.YAxis}
+                    value={this.state[props.YAxis]}
+                    onChange={this.handleChangeRadio}
+                    class="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
+                </div>
               </div>
               <div className="plotHeightSelect">
                 <FormControl>
@@ -568,6 +566,7 @@ class Simulator extends React.Component {
             <h3 className="plotOptionsTitle">SIGNALS TO PLOT</h3>
             {ratesSelected &&
               Object.entries(ratesSelected).map(input => {
+                console.log(input)
                 if (input[1] === true) {
                   return <this.signalsToPlot data={input} />
                 }
@@ -655,19 +654,15 @@ class Simulator extends React.Component {
   }
 
   handleChangeRadio = event => {
-    //console.log(event.target)
     this.setState({ [event.target.name]: event.target.value })
   }
 
   handleChange = event => {
-    //console.log(typeof event.target.value)
-    //console.log(event.target.value)
     let value
     if (event.target.value != '') {
       value = Number(event.target.value)
     } else {
     }
-    //console.log(typeof value)
     this.checkValue(event.target, value)
     this.setState({
       [event.target.id]: value
@@ -699,6 +694,7 @@ class Simulator extends React.Component {
         computed: []
       }
     }
+    console.log(data)
     dispatchFetchSimData(data)
     this.setState({
       dataModel: null,
@@ -710,14 +706,11 @@ class Simulator extends React.Component {
     let inputs = {}
     let count = Object.keys(data).length
     let keys = Object.keys(data)
-    //console.log(keys)
     let i
     for (i = 0; i < count; i++) {
       if (this.state[data[keys[i]].name] === true) {
         const name = keys[i]
-        //console.log(name)
         const value = this.state[keys[i]]
-        //console.log(value)
         inputs[keys[i]] = value
       }
     }
@@ -727,32 +720,24 @@ class Simulator extends React.Component {
   concentrations(data) {
     let concentrations = []
     let count = data.length
-    //console.log(count)
     let i
     for (i = 0; i < count; i++) {
-      //console.log(data[i].variable)
-      //console.log(this.state.selectedConcentrations[data[i].id])
-      if (this.state.selectedConcentrations[data[i].id] === true) {
+      if (this.state.selectedConcentrations[data[i].variable] === true) {
         concentrations.push(data[i].variable)
       }
     }
-    //console.log(concentrations)
     return concentrations
   }
 
   flux(data) {
     let flux = []
     let count = data.length
-    //console.log(count)
     let i
     for (i = 0; i < count; i++) {
-      //console.log(data[i].variable)
-      //console.log(this.state.ratesSelected[data[i].id])
-      if (this.state.ratesSelected[data[i].id] === true) {
+      if (this.state.ratesSelected[data[i].variable] === true) {
         flux.push(data[i].variable)
       }
     }
-    //console.log(flux)
     return flux
   }
 
@@ -769,7 +754,6 @@ class Simulator extends React.Component {
     this.setState({
       dataModel: data
     })
-    //console.log(this.state)
   }
 
   // Needed For Prod
@@ -784,7 +768,6 @@ class Simulator extends React.Component {
   }
 
   hidden(evt) {
-    //console.log(evt.target)
     const name = evt.target.name
     const nameCheckBox = `${evt.target.name}`
     const value = evt.target.checked
@@ -793,20 +776,34 @@ class Simulator extends React.Component {
     this.setState(nextState2)
   }
 
-  initalData(simDataRoot) {
-    console.log(simDataRoot)
-    const time = simDataRoot.simData.time
-    const HEX1 = simDataRoot.simData.fluxHEX1
-    // const PYK = simDataRoot.simData.fluxPYK
-    const GLC = simDataRoot.simData.GLC
-    // const computed = simDataRoot.simData.computed
-    const data = []
-    let i
-    for (i = 0; i < time.length; i++) {
-      data.push({ time: time[i], HEX: HEX1[i], GLC: GLC[i] })
+  initalData(simData) {
+    var size = Object.keys(simData)
+    console.log(size)
+
+    let stateData = []
+    for (let i = 0; i < simData.time.length; i++) {
+      let prevObject = {}
+      function buildObject(workingObject, name, data) {
+        const newObject = Object.assign({}, workingObject, {
+          [name]: data
+        })
+        prevObject = newObject
+      }
+
+      Object.entries(simData).map((input) => {
+        const name = input[0]
+        const dataSet = input[1]
+        const data = dataSet[i]
+        const workingObject = prevObject
+        buildObject(workingObject, name, data)
+
+       
+      })
+      const superObject = prevObject
+      stateData.push(superObject)
     }
     this.setState({
-      dataModel: data,
+      dataModel: stateData,
       hasUpdated: true
     })
   }
