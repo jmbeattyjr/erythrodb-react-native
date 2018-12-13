@@ -372,7 +372,7 @@ class Simulator extends React.Component {
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
-            domain={["auto", "auto"]}
+            domain={[dataMin => dataMin * 0.999, dataMax => dataMax * 1.001]}
             label={{ value: 'Concentration  (mmol)', position: 'left', angle: -90, dx: -10, dy: -70 }}
             tickFormatter={number => this.dataFormaterY(number)}
             scale={this.state.concentrationYAxis}
