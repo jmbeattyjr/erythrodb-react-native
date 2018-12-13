@@ -515,34 +515,36 @@ class Simulator extends React.Component {
             <div className="plotOptions">
               <div className="plotOptions-row">
                 <h3>X Axis</h3>
-                <div className="radioGroup">
-                  <RadioGroup
-                    aria-label={props.name}
-                    name={props.XAxis}
-                    value={this.state[props.XAxis]}
-                    onChange={this.handleChangeRadio}
-                    class="radioGroup"
-                  >
+
+                <RadioGroup
+                  aria-label={props.name}
+                  name={props.XAxis}
+                  value={this.state[props.XAxis]}
+                  onChange={this.handleChangeRadio}
+                  class="radioGroup"
+                >
+                  <div className="radioGroup">
                     <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                     <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                  </RadioGroup>
-                </div>
+                  </div>
+                </RadioGroup>
               </div>
 
               <div className="plotOptions-row">
                 <h3>Y Axis</h3>
-                <div className="radioGroup">
-                  <RadioGroup
-                    aria-label={props.name}
-                    name={props.YAxis}
-                    value={this.state[props.YAxis]}
-                    onChange={this.handleChangeRadio}
-                    class="radioGroup"
-                  >
+
+                <RadioGroup
+                  aria-label={props.name}
+                  name={props.YAxis}
+                  value={this.state[props.YAxis]}
+                  onChange={this.handleChangeRadio}
+                  class="radioGroup"
+                >
+                  <div className="radioGroup">
                     <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                     <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                  </RadioGroup>
-                </div>
+                  </div>
+                </RadioGroup>
               </div>
               <div className="plotHeightSelect">
                 <FormControl>
