@@ -319,7 +319,6 @@ class Simulator extends React.Component {
     const ratescheckedValue = this.state.ratestoPlot[name]
     const arrayToObject = array =>
       array.reduce((obj, item) => {
-        console.log(item)
         obj[item.variable] = item
         return obj
       }, {})
@@ -373,7 +372,7 @@ class Simulator extends React.Component {
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
-            domain={[dataMin => dataMin * 0.999, dataMax => dataMax * 1.001]}
+            domain={["auto", "auto"]}
             label={{ value: 'Concentration  (mmol)', position: 'left', angle: -90, dx: -10, dy: -70 }}
             tickFormatter={number => this.dataFormaterY(number)}
             scale={this.state.concentrationYAxis}
@@ -447,10 +446,8 @@ class Simulator extends React.Component {
                   onChange={this.handleChangeRadio}
                   class="radioGroup"
                 >
-                  <div className="radioGroup">
-                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                  </div>
+                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                 </RadioGroup>
               </div>
 
@@ -464,10 +461,8 @@ class Simulator extends React.Component {
                   onChange={this.handleChangeRadio}
                   class="radioGroup"
                 >
-                  <div className="radioGroup">
-                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                  </div>
+                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                 </RadioGroup>
               </div>
               <div className="plotHeightSelect">
@@ -494,7 +489,6 @@ class Simulator extends React.Component {
             <h3 className="plotOptionsTitle">SIGNALS TO PLOT</h3>
             {selectedConcentrations &&
               Object.entries(selectedConcentrations).map(input => {
-                console.log(input)
                 if (input[1] === true) {
                   return <this.signalsToPlot data={input} />
                 }
@@ -523,10 +517,8 @@ class Simulator extends React.Component {
                   onChange={this.handleChangeRadio}
                   class="radioGroup"
                 >
-                  <div className="radioGroup">
-                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                  </div>
+                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                 </RadioGroup>
               </div>
 
@@ -540,10 +532,8 @@ class Simulator extends React.Component {
                   onChange={this.handleChangeRadio}
                   class="radioGroup"
                 >
-                  <div className="radioGroup">
-                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                  </div>
+                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                 </RadioGroup>
               </div>
               <div className="plotHeightSelect">
@@ -570,7 +560,6 @@ class Simulator extends React.Component {
             <h3 className="plotOptionsTitle">SIGNALS TO PLOT</h3>
             {ratesSelected &&
               Object.entries(ratesSelected).map(input => {
-                console.log(input)
                 if (input[1] === true) {
                   return <this.signalsToPlot data={input} />
                 }
@@ -698,7 +687,6 @@ class Simulator extends React.Component {
         computed: []
       }
     }
-    console.log(data)
     dispatchFetchSimData(data)
     this.setState({
       dataModel: null,
@@ -782,7 +770,6 @@ class Simulator extends React.Component {
 
   initalData(simData) {
     var size = Object.keys(simData)
-    console.log(size)
 
     let stateData = []
     for (let i = 0; i < simData.time.length; i++) {
