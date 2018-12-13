@@ -17,7 +17,8 @@ export default (prevState = initalState, action) => {
   switch (action.type) {
     case dataActions.FETCH_SIMDATA_REQUEST: {
       const nextState = Object.assign({}, prevState, {
-        simisFetching: true
+        simisFetching: true,
+        simData: [],
       })
       return nextState
     }
@@ -39,7 +40,11 @@ export default (prevState = initalState, action) => {
     }
     case dataActions.FETCH_METADATA_REQUEST: {
       const nextState = Object.assign({}, prevState, {
-        metaisFetching: true
+        metaisFetching: true,
+        metadata: {
+          concentrations: [],
+          rates: [],
+        },
       })
       return nextState
     }

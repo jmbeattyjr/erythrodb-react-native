@@ -34,7 +34,7 @@ import Input from '@material-ui/core/Input'
 import './simulator.css'
 import { fetchSimData, fetchMetadata } from '../../lib/redux/entities/simulator/simulator.actions'
 
-import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup, TextField, Dialog, DialogTitle } from '@material-ui/core'
+import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup, TextField, Dialog, DialogTitle, Select, MenuItem } from '@material-ui/core'
 // import { Loading } from 'react-static';
 
 class Simulator extends React.Component {
@@ -53,6 +53,8 @@ class Simulator extends React.Component {
       ratesYAxis: 'Linear',
       concentrationstoPlot: {},
       ratestoPlot: {},
+      concentrationsPlotHeight: 300,
+      ratesPlotHeight: 300
     }
   }
 
@@ -63,18 +65,15 @@ class Simulator extends React.Component {
 
     console.log(simDataRoot)
 
-    if (this.props.simDataRoot.simhasFetched === true && this.props.simDataRoot.metahasFetched === true && this.state.hasUpdated === false) {
+    if (
+      this.props.simDataRoot.simhasFetched === true &&
+      this.props.simDataRoot.metahasFetched === true &&
+      this.state.hasUpdated === false &&
+      this.state.dataModel === null &&
+      this.props.simDataRoot.simisFetching === false &&
+      !this.props.simDataRoot.error
+    ) {
       this.initalData(simDataRoot)
-    }
-
-    const DataFormaterTime = number => {
-      const newNumber = Math.round(number * 1) / 1
-      return newNumber
-    }
-
-    const DataFormaterY = number => {
-      const newNumber = Math.round(number * 10000000) / 10000000
-      return newNumber
     }
 
     let concentrations
@@ -336,6 +335,10 @@ class Simulator extends React.Component {
     //console.log(hydratedConcentration)
 
     if (hydratedConcentration) {
+      if (!this.state.concentrationsInitialCheck) {
+        this.setState({ concentrationsInitialCheck: true })
+        this.concentrationsCheckboxPlots(name)
+      }
       return (
         <div className="output-box">
           <MuiThemeProvider theme={outerTheme}>
@@ -348,10 +351,12 @@ class Simulator extends React.Component {
       )
     }
     if (hydratedRates) {
+      const defaultChecked = this.state.ratestoPlot[name]
+      console.log(defaultChecked)
       return (
         <div className="output-box">
           <MuiThemeProvider theme={outerTheme}>
-            <Checkbox checked={ratescheckedValue} onChange={this.ratesCheckboxPlots(name)} value={name} />
+            <Checkbox checked={this.state.ratestoPlot[name]} onChange={this.ratesCheckboxPlots(name)} value={name} defaultChecked={defaultChecked} />
           </MuiThemeProvider>
           <div className="output-box_des">
             <Typography gutterBottom>{hydratedRates.name}</Typography>
@@ -367,14 +372,16 @@ class Simulator extends React.Component {
   concentrationsCharts = props => {
     const concentrationstoPlot = this.state.concentrationstoPlot
     const color = randomColor()
+    const top = 'dataMax*1.5'
+    const bottom = 'dataMin*.5'
     return (
-      <ResponsiveContainer height={300}>
+      <ResponsiveContainer height={this.state.concentrationsPlotHeight}>
         <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
           <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.concentrationXAxis}>
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
-            domain={['auto', 'auto']}
+            domain={[dataMin => dataMin * 0.999, dataMax => dataMax * 1.001]}
             label={{ value: 'Concentration  (mmol)', position: 'left', angle: -90, dx: -10, dy: -70 }}
             tickFormatter={number => this.dataFormaterY(number)}
             scale={this.state.concentrationYAxis}
@@ -396,13 +403,13 @@ class Simulator extends React.Component {
     const ratestoPlot = this.state.ratestoPlot
     const color = randomColor()
     return (
-      <ResponsiveContainer height={300}>
+      <ResponsiveContainer height={this.state.ratesPlotHeight}>
         <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
           <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.ratesXAxis}>
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
-            domain={['auto', 'auto']}
+            domain={[dataMin => dataMin * 0.999, dataMax => dataMax * 1.001]}
             label={{ value: 'Flux (mmol/hour)', position: 'left', angle: -90, dx: -10, dy: -50 }}
             tickFormatter={number => this.dataFormaterY(number)}
             scale={this.state.ratesYAxis}
@@ -467,6 +474,22 @@ class Simulator extends React.Component {
                   <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                 </RadioGroup>
               </div>
+              <div className="plotHeightSelect">
+                <FormControl>
+                  {/* <Select value={this.state.concentrationsPlotHeight} onChange={this.handleChangeRadio} name="concentrationsPlotHeight"> */}
+                  <FormHelperText>Plot Height</FormHelperText>
+                  <Select
+                    value={this.state.concentrationsPlotHeight}
+                    onChange={this.handleChangeRadio}
+                    input={<OutlinedInput name="concentrationsPlotHeight" id="outlined-age-simple" />}
+                  >
+                    <MenuItem value={200}>200 pixels</MenuItem>
+                    <MenuItem value={300}>300 pixels</MenuItem>
+                    <MenuItem value={400}>400 pixels</MenuItem>
+                    <MenuItem value={500}>500 pixels</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
             </div>
           </div>
         </div>
@@ -521,6 +544,22 @@ class Simulator extends React.Component {
                   <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                 </RadioGroup>
               </div>
+              <div className="plotHeightSelect">
+                <FormControl>
+                  {/* <Select value={this.state.concentrationsPlotHeight} onChange={this.handleChangeRadio} name="concentrationsPlotHeight"> */}
+                  <FormHelperText>Plot Height</FormHelperText>
+                  <Select
+                    value={this.state.ratesPlotHeight}
+                    onChange={this.handleChangeRadio}
+                    input={<OutlinedInput name="ratesPlotHeight" id="outlined-age-simple" />}
+                  >
+                    <MenuItem value={200}>200 pixels</MenuItem>
+                    <MenuItem value={300}>300 pixels</MenuItem>
+                    <MenuItem value={400}>400 pixels</MenuItem>
+                    <MenuItem value={500}>500 pixels</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
             </div>
           </div>
         </div>
@@ -568,6 +607,14 @@ class Simulator extends React.Component {
   }
 
   concentrationsCheckbox = name => event => {
+    if (!this.state.concentrationsInitialCheck) {
+      this.setState({ concentrationsInitialCheck: true })
+      let state = this.state.concentrationstoPlot
+      const concentrationstoPlot = Object.assign({}, state, {
+        [name]: true
+      })
+      this.setState({ concentrationstoPlot })
+    }
     let state = this.state.selectedConcentrations
     const selectedConcentrations = Object.assign({}, state, {
       [name]: event.target.checked
@@ -576,6 +623,14 @@ class Simulator extends React.Component {
   }
 
   ratesCheckbox = name => event => {
+    if (!this.state.ratesInitialCheck) {
+      this.setState({ ratesInitialCheck: true })
+      let state = this.state.ratestoPlot
+      const ratestoPlot = Object.assign({}, state, {
+        [name]: true
+      })
+      this.setState({ ratestoPlot })
+    }
     let state = this.state.ratesSelected
     const ratesSelected = Object.assign({}, state, {
       [name]: event.target.checked
@@ -645,6 +700,10 @@ class Simulator extends React.Component {
       }
     }
     dispatchFetchSimData(data)
+    this.setState({
+      dataModel: null,
+      hasUpdated: false
+    })
   }
 
   inputs(data) {
@@ -715,12 +774,12 @@ class Simulator extends React.Component {
 
   // Needed For Prod
   dataFormaterTime = number => {
-    const newNumber = Math.round(number * 1) / 1
+    const newNumber = number.toFixed(0)
     return newNumber
   }
 
   dataFormaterY = number => {
-    const newNumber = Math.round(number * 10000000) / 10000000
+    const newNumber = number.toFixed(2)
     return newNumber
   }
 
@@ -796,7 +855,7 @@ class SimpleDialog extends React.Component {
       <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
         <div className="progress">
           <DialogTitle id="simple-dialog-title">Running Simulation</DialogTitle>
-          <h6/>
+          <h6 />
           <CircularDeterminate />
           <h6 />
           <Timer>

@@ -206,7 +206,7 @@ p {
   /* justify-content: center; */
   /* min-width: 30vw;
     max-width: 50vw; */
-  margin: 10px;
+  padding: 10px;
 }
 
 .plotOptions-row {
@@ -328,4 +328,9 @@ form {
 
 .circle {
     /* width: 100% */
+}
+
+.plotHeightSelect {
+  align-self: center;
+  padding-bottom: 10px;
 }

@@ -51,7 +51,7 @@ export default class TestBootStrapTable extends Component {
 
     return (
       <div id="bibliomeContainer">
-        <h1>TO DO</h1>
+        <h1>TODO...Bibliome Page</h1>
       </div>
     )
   }
