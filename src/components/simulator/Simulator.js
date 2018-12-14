@@ -372,7 +372,7 @@ class Simulator extends React.Component {
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
-            domain={[dataMin => dataMin * 0.999, dataMax => dataMax * 1.001]}
+            domain={[dataMin => dataMin * 0.997, dataMax => dataMax * 1.003]}
             label={{ value: 'Concentration  (mmol)', position: 'left', angle: -90, dx: -10, dy: -70 }}
             tickFormatter={number => this.dataFormaterY(number)}
             scale={this.state.concentrationYAxis}
@@ -400,7 +400,7 @@ class Simulator extends React.Component {
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
-            domain={[dataMin => dataMin * 0.999, dataMax => dataMax * 1.001]}
+            domain={[dataMin => dataMin * 0.997, dataMax => dataMax * 1.003]}
             label={{ value: 'Flux (mmol/hour)', position: 'left', angle: -90, dx: -10, dy: -50 }}
             tickFormatter={number => this.dataFormaterY(number)}
             scale={this.state.ratesYAxis}
