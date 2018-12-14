@@ -334,3 +334,9 @@ form {
   align-self: center;
   padding-bottom: 10px;
 }
+
+.fixFormat {
+  display: flex;
+  flex-direction: row;
+  
+}

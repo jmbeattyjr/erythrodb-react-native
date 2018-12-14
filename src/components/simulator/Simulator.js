@@ -452,8 +452,8 @@ class Simulator extends React.Component {
               </div>
 
               <div className="plotOptions-row">
+                <div className='fixFormat'>
                 <h3>Y Axis</h3>
-
                 <RadioGroup
                   aria-label={props.name}
                   name={props.YAxis}
@@ -464,6 +464,7 @@ class Simulator extends React.Component {
                   <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                   <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                 </RadioGroup>
+                </div>
               </div>
               <div className="plotHeightSelect">
                 <FormControl>
