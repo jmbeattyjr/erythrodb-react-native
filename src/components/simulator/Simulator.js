@@ -79,7 +79,7 @@ class Simulator extends React.Component {
     const selectedConcentrations = this.state.selectedConcentrations
 
     const { inputs } = this.props.simDataRoot.metadata
-    if (this.props.simDataRoot.metahasFetched === true) {
+    if (this.props.simDataRoot.metahasFetched === true && !this.props.simDataRoot.metaisFetching) {
       concentrations = this.props.simDataRoot.metadata.outputs.concentrations
       rates = this.props.simDataRoot.metadata.outputs.rates
     }
