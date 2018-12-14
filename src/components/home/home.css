@@ -85,7 +85,7 @@
 .body-navigation__item:visited {
   display: inline-block;
   width: 300px;
-  min-height: 350px;
+  /* min-height: 350px; */
   /* height: 45vw; */
   /* max-height: 60vh; */
   padding: 10px;
