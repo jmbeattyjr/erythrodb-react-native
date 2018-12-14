@@ -34,7 +34,7 @@ import Input from '@material-ui/core/Input'
 import './simulator.css'
 import { fetchSimData, fetchMetadata } from '../../lib/redux/entities/simulator/simulator.actions'
 
-import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup, TextField, Dialog, DialogTitle, Select, MenuItem } from '@material-ui/core'
+import { OutlinedInput, FormControlLabel, Checkbox, RadioGroup, TextField, Dialog, DialogTitle, Select, MenuItem, FormGroup } from '@material-ui/core'
 // import { Loading } from 'react-static';
 
 class Simulator extends React.Component {
@@ -113,7 +113,7 @@ class Simulator extends React.Component {
                   <Typography color="textSecondary" gutterBottom>
                     General Simulation parameters and settings
                   </Typography>
-                  <List>
+                  <List id="timeInput">
                     <ListItem>
                       <FormControl className="border">
                         <OutlinedInput
@@ -122,11 +122,6 @@ class Simulator extends React.Component {
                           value={this.state.name}
                           onChange={this.handleChangeRadio.bind(this)}
                           placeholder="Time Start"
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <Search fontSize="small" />
-                            </InputAdornment>
-                          }
                         />
                       </FormControl>
                     </ListItem>
@@ -138,11 +133,6 @@ class Simulator extends React.Component {
                           value={this.state.name}
                           onChange={this.handleChangeRadio.bind(this)}
                           placeholder="Time End"
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <Search fontSize="small" />
-                            </InputAdornment>
-                          }
                         />
                       </FormControl>
                     </ListItem>
@@ -438,32 +428,33 @@ class Simulator extends React.Component {
             <div className="plotOptions">
               <div className="plotOptions-row">
                 <h3>X Axis</h3>
-
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.XAxis}
-                  value={this.state[props.XAxis]}
-                  onChange={this.handleChangeRadio}
-                  class="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                <FormGroup row>
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.XAxis}
+                    value={this.state[props.XAxis]}
+                    onChange={this.handleChangeRadio}
+                    class="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
+                </FormGroup>
               </div>
 
               <div className="plotOptions-row">
-                <div className='fixFormat'>
-                <h3>Y Axis</h3>
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.YAxis}
-                  value={this.state[props.YAxis]}
-                  onChange={this.handleChangeRadio}
-                  id="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                <div className="fixFormat">
+                  <h3>Y Axis</h3>
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.YAxis}
+                    value={this.state[props.YAxis]}
+                    onChange={this.handleChangeRadio}
+                    id="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
                 </div>
               </div>
               <div className="plotHeightSelect">

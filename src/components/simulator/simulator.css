@@ -340,3 +340,8 @@ form {
   flex-direction: row;
 
 }
+
+#timeInput {
+  display: flex;
+  flex-direction: row;
+}
