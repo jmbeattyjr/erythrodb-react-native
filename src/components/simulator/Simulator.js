@@ -459,7 +459,7 @@ class Simulator extends React.Component {
                   name={props.YAxis}
                   value={this.state[props.YAxis]}
                   onChange={this.handleChangeRadio}
-                  class="radioGroup"
+                  id="radioGroup"
                 >
                   <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                   <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />

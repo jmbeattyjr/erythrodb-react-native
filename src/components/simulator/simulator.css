@@ -146,7 +146,7 @@
   margin: 50px;
 }
 
-.radioGroup {
+#radioGroup {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -338,5 +338,5 @@ form {
 .fixFormat {
   display: flex;
   flex-direction: row;
-  
+
 }
