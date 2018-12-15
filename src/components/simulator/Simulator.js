@@ -354,12 +354,7 @@ class Simulator extends React.Component {
     return (
       <ResponsiveContainer height={this.state.concentrationsPlotHeight}>
         <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
-          <XAxis dataKey="time" 
-          tickFormatter={number => this.dataFormaterTime(number)} 
-          tickCount={10}
-          scale={this.state.concentrationXAxis}
-          type="number"
-          >
+          <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.concentrationXAxis}>
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
