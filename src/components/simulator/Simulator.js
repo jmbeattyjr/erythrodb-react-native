@@ -354,7 +354,12 @@ class Simulator extends React.Component {
     return (
       <ResponsiveContainer height={this.state.concentrationsPlotHeight}>
         <LineChart data={this.state.dataModel} style={{ overflow: 'unset' }} syncId="metaProfiles">
-          <XAxis dataKey="time" tickFormatter={number => this.dataFormaterTime(number)} scale={this.state.concentrationXAxis}>
+          <XAxis dataKey="time" 
+          tickFormatter={number => this.dataFormaterTime(number)} 
+          tickCount={10}
+          scale={this.state.concentrationXAxis}
+          type="number"
+          >
             <Label value="Time (hours)" offset={0} position="bottom" />
           </XAxis>
           <YAxis
@@ -431,7 +436,7 @@ class Simulator extends React.Component {
                     name={props.XAxis}
                     value={this.state[props.XAxis]}
                     onChange={this.handleChangeRadio}
-                    class="radioGroup"
+                    id="radioGroup"
                   >
                     <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                     <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
@@ -505,7 +510,7 @@ class Simulator extends React.Component {
                     name={props.XAxis}
                     value={this.state[props.XAxis]}
                     onChange={this.handleChangeRadio}
-                    class="radioGroup"
+                    id="radioGroup"
                   >
                     <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                     <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
@@ -522,7 +527,7 @@ class Simulator extends React.Component {
                     name={props.YAxis}
                     value={this.state[props.YAxis]}
                     onChange={this.handleChangeRadio}
-                    class="radioGroup"
+                    id="radioGroup"
                   >
                     <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                     <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
@@ -743,7 +748,7 @@ class Simulator extends React.Component {
 
   // Needed For Prod
   dataFormaterTime = number => {
-    const newNumber = number.toFixed(0)
+    const newNumber = number.toFixed(2)
     return newNumber
   }
 
