@@ -18,6 +18,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Clear from '@material-ui/icons/Clear'
 import Done from '@material-ui/icons/Done'
 import Search from '@material-ui/icons/Search'
+import Remove from '@material-ui/icons/Remove'
 
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -107,36 +108,31 @@ class Simulator extends React.Component {
               </Card>
               <Card className="parameters">
                 <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    SIMULATION PARAMETERS
-                  </Typography>
-                  <Typography color="textSecondary" gutterBottom>
-                    General Simulation parameters and settings
-                  </Typography>
-                  <List id="timeInput">
-                    <ListItem>
-                      <FormControl className="border">
-                        <OutlinedInput
-                          id="input-with-icon-adornment"
-                          name="t0"
-                          value={this.state.name}
-                          onChange={this.handleChangeRadio.bind(this)}
-                          placeholder="Time Start"
-                        />
-                      </FormControl>
-                    </ListItem>
-                    <ListItem>
-                      <FormControl className="border">
-                        <OutlinedInput
-                          id="input-with-icon-adornment"
-                          name="t_end"
-                          value={this.state.name}
-                          onChange={this.handleChangeRadio.bind(this)}
-                          placeholder="Time End"
-                        />
-                      </FormControl>
-                    </ListItem>
-                  </List>
+                  <Typography gutterBottom>SIMULATION PARAMETERS</Typography>
+                  <Typography gutterBottom>General Simulation parameters and settings</Typography>
+
+                  <div id="timeInput">
+                    <FormControl className="border">
+                      <OutlinedInput
+                        id="input-with-icon-adornment"
+                        name="t0"
+                        value={this.state.name}
+                        onChange={this.handleChangeRadio.bind(this)}
+                        placeholder="Time Start"
+                      />
+                    </FormControl>
+                    <Remove className="timeLabels" />
+                    <FormControl className="border">
+                      <OutlinedInput
+                        id="input-with-icon-adornment"
+                        name="t_end"
+                        value={this.state.name}
+                        onChange={this.handleChangeRadio.bind(this)}
+                        placeholder="Time End"
+                      />
+                    </FormControl>
+                    <Typography className="timeLabels">hours</Typography>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -427,8 +423,9 @@ class Simulator extends React.Component {
             <h3 className="plotOptionsTitle">PLOT OPTIONS</h3>
             <div className="plotOptions">
               <div className="plotOptions-row">
-                <h3>X Axis</h3>
-                <FormGroup row>
+                <div className="fixFormat">
+                  <h3>X Axis</h3>
+
                   <RadioGroup
                     aria-label={props.name}
                     name={props.XAxis}
@@ -439,7 +436,7 @@ class Simulator extends React.Component {
                     <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
                     <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
                   </RadioGroup>
-                </FormGroup>
+                </div>
               </div>
 
               <div className="plotOptions-row">
@@ -500,33 +497,37 @@ class Simulator extends React.Component {
             <h3 className="plotOptionsTitle">PLOT OPTIONS</h3>
             <div className="plotOptions">
               <div className="plotOptions-row">
-                <h3>X Axis</h3>
+                <div className="fixFormat">
+                  <h3>X Axis</h3>
 
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.XAxis}
-                  value={this.state[props.XAxis]}
-                  onChange={this.handleChangeRadio}
-                  class="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.XAxis}
+                    value={this.state[props.XAxis]}
+                    onChange={this.handleChangeRadio}
+                    class="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
+                </div>
               </div>
 
               <div className="plotOptions-row">
-                <h3>Y Axis</h3>
+                <div className="fixFormat">
+                  <h3>Y Axis</h3>
 
-                <RadioGroup
-                  aria-label={props.name}
-                  name={props.YAxis}
-                  value={this.state[props.YAxis]}
-                  onChange={this.handleChangeRadio}
-                  class="radioGroup"
-                >
-                  <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
-                  <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
-                </RadioGroup>
+                  <RadioGroup
+                    aria-label={props.name}
+                    name={props.YAxis}
+                    value={this.state[props.YAxis]}
+                    onChange={this.handleChangeRadio}
+                    class="radioGroup"
+                  >
+                    <FormControlLabel value="Linear" control={<Checkbox />} label="Linear" />
+                    <FormControlLabel value="Logarithmic" control={<Checkbox />} label="Logarithmic" />
+                  </RadioGroup>
+                </div>
               </div>
               <div className="plotHeightSelect">
                 <FormControl>
