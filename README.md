@@ -1,10 +1,7 @@
-# React-Static - Basic Example
+# erythrodb-frontend
 
-This example is the most basic version of react-static available. It includes:
-- Babel
-- CSS imports
-- Image imports
-- File imports
-- Automatic Routing
+Front-end code for ErythroDB
 
-To get started, run `react-static create` and use the `basic` template.
+## Web-app design
+
+Figma project: https://www.figma.com/file/EVMcc0cUjRoxsgonNCF2bx9g/BioSimulate-Simulation-Dashboard?node-id=1%3A115
