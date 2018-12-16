@@ -55,6 +55,8 @@ class Simulator extends React.Component {
       concentrationYAxis: 'Linear',
       ratesXAxis: 'Linear',
       ratesYAxis: 'Linear',
+      selectedConcentrations:{},
+      ratesSelected: {},
       concentrationstoPlot: {},
       ratestoPlot: {},
       concentrationsPlotHeight: 300,
@@ -86,6 +88,8 @@ class Simulator extends React.Component {
     let concentrations
     let rates
     const selectedConcentrations = this.state.selectedConcentrations
+    const valuet0 = this.state.t0
+    const valuet_end = this.state.t_end
 
     const { inputs } = this.props.simDataRoot.metadata
     if (this.props.simDataRoot.metahasFetched === true && !this.props.simDataRoot.metaisFetching) {
@@ -129,7 +133,7 @@ class Simulator extends React.Component {
                     <OutlinedInput
                       id="input-with-icon-adornment"
                       name="t0"
-                      value={this.state.name}
+                      value={valuet0}
                       onChange={this.handleChangeRadio.bind(this)}
                       placeholder="Time Start"
                     />
@@ -139,7 +143,7 @@ class Simulator extends React.Component {
                     <OutlinedInput
                       id="input-with-icon-adornment"
                       name="t_end"
-                      value={this.state.name}
+                      value={valuet_end}
                       onChange={this.handleChangeRadio.bind(this)}
                       placeholder="Time End"
                     />
@@ -260,6 +264,7 @@ class Simulator extends React.Component {
   }
 
   outputParametersConcentrations = data => {
+   const checked = this.state.selectedConcentrations[data.data.variable]
     const outerTheme = createMuiTheme({
       palette: {
         secondary: {
@@ -272,7 +277,7 @@ class Simulator extends React.Component {
     return (
       <div className="output-box">
         <MuiThemeProvider theme={outerTheme}>
-          <Checkbox onChange={this.concentrationsCheckbox(data.data.variable)} value={data.data.id} />
+          <Checkbox checked={checked} onChange={this.concentrationsCheckbox(data.data.variable)} value={data.data.id} />
         </MuiThemeProvider>
         <div className="output-box_des">
           <Typography gutterBottom>{data.data.name}</Typography>
@@ -283,6 +288,7 @@ class Simulator extends React.Component {
   }
 
   outputParametersRates = data => {
+    const checked = this.state.ratesSelected[data.data.variable]
     const outerTheme = createMuiTheme({
       palette: {
         secondary: {
@@ -295,7 +301,7 @@ class Simulator extends React.Component {
     return (
       <div className="output-box">
         <MuiThemeProvider theme={outerTheme}>
-          <Checkbox onChange={this.ratesCheckbox(data.data.variable)} value={data.data.id} />
+          <Checkbox checked={checked} onChange={this.ratesCheckbox(data.data.variable)}/>
         </MuiThemeProvider>
         <div className="output-box_des">
           <Typography gutterBottom>{data.data.name}</Typography>
