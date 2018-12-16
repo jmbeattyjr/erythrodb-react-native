@@ -233,7 +233,7 @@ class Simulator extends React.Component {
           <TextField
             defaultValue={defaultValue}
             id={data.jsonName}
-            type="phone"
+            type="number"
             name={props.name}
             value={defaultValue}
             onChange={this.handleChange.bind(this)}
