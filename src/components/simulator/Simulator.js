@@ -31,6 +31,9 @@ import FormControl from '@material-ui/core/FormControl'
 
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Input from '@material-ui/core/Input'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import Collapse from '@material-ui/core/Collapse';
 
 import './simulator.css'
 import { fetchSimData, fetchMetadata } from '../../lib/redux/entities/simulator/simulator.actions'
@@ -55,8 +58,13 @@ class Simulator extends React.Component {
       concentrationstoPlot: {},
       ratestoPlot: {},
       concentrationsPlotHeight: 300,
-      ratesPlotHeight: 300
+      ratesPlotHeight: 300,
+      open: true
     }
+  }
+
+  handleClick = () => {
+    this.setState(state => ({ open: !state.open }))
   }
 
   render() {
@@ -87,81 +95,88 @@ class Simulator extends React.Component {
     return (
       <div className="simulator-body">
         <div className="mainDashboardAll">
-          <h1>BIOSIMULATION</h1>
-          <div className="mainDashboard">
-            <div className="mainDashboard-leftSide">
-              <Card className="simInputs">
-                <CardContent>
-                  <Typography component="h5" variant="h5" gutterBottom>
-                    INPUTS
-                  </Typography>
-                  <Typography component="h6" variant="h6" gutterBottom>
-                    Specify input values for the simulation
-                  </Typography>
-                  {inputs &&
-                    Object.entries(inputs).map(input => {
-                      var inputData = input[1]
-                      var inputJsonName = input[0].toString()
-                      return <this.inputParameters data={inputData} jsonName={inputJsonName} />
-                    })}
-                </CardContent>
-              </Card>
-              <Card className="parameters">
-                <CardContent>
-                  <Typography gutterBottom>SIMULATION PARAMETERS</Typography>
-                  <Typography gutterBottom>General Simulation parameters and settings</Typography>
-
-                  <div id="timeInput">
-                    <FormControl className="border">
-                      <OutlinedInput
-                        id="input-with-icon-adornment"
-                        name="t0"
-                        value={this.state.name}
-                        onChange={this.handleChangeRadio.bind(this)}
-                        placeholder="Time Start"
-                      />
-                    </FormControl>
-                    <Remove className="timeLabels" />
-                    <FormControl className="border">
-                      <OutlinedInput
-                        id="input-with-icon-adornment"
-                        name="t_end"
-                        value={this.state.name}
-                        onChange={this.handleChangeRadio.bind(this)}
-                        placeholder="Time End"
-                      />
-                    </FormControl>
-                    <Typography className="timeLabels">hours</Typography>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-            <div className="mainDashboard-rightSide">
-              <Card className="parameters">
-                <CardContent>
-                  <Typography component="h5" variant="h5" gutterBottom>
-                    OUTPUTS
-                  </Typography>
-                  <Typography component="h6" variant="h6" gutterBottom>
-                    Select the outputs below that should be included in the simulation.
-                  </Typography>
-                  <Typography gutterBottom>Concentrations</Typography>
-                  {concentrations &&
-                    concentrations.map(input => {
-                      return <this.outputParametersConcentrations data={input} />
-                    })}
-                  <Typography gutterBottom>Rates</Typography>
-                  {rates &&
-                    rates.map(input => {
-                      return <this.outputParametersRates data={input} />
-                    })}
-                </CardContent>
-              </Card>
-            </div>
+          <div className="simulationTitle" onClick={this.handleClick}>
+            <h1>Simulation Dashboard</h1>
+            {this.state.open ? <ExpandLess id="expand"/> : <ExpandMore id="expand"/>}
           </div>
-          <Button variant="contained" size="large" id="simButton" onClick={this.submit.bind(this)}>
-            SIMULATE
-          </Button>
+          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+            <div className="mainDashboard">
+              <div className="parameters">
+                <Typography component="h5" variant="h5" gutterBottom>
+                  INPUTS
+                </Typography>
+                <Typography component="h6" variant="h6" gutterBottom>
+                  Specify input values for the simulation
+                </Typography>
+                {inputs &&
+                  Object.entries(inputs).map(input => {
+                    var inputData = input[1]
+                    var inputJsonName = input[0].toString()
+                    // const state= this.state
+                    return <this.inputParameters data={inputData} jsonName={inputJsonName} state={this.state} />
+                  })}
+              </div>
+              <div className="parameters">
+                <Typography component="h5" variant="h5" gutterBottom>
+                  SIMULATION PARAMETERS
+                </Typography>
+                <Typography component="h6" variant="h6" gutterBottom>
+                  General Simulation parameters and settings
+                </Typography>
+
+                <div id="timeInput">
+                  <FormControl className="border">
+                    <OutlinedInput
+                      id="input-with-icon-adornment"
+                      name="t0"
+                      value={this.state.name}
+                      onChange={this.handleChangeRadio.bind(this)}
+                      placeholder="Time Start"
+                    />
+                  </FormControl>
+                  <Remove className="timeLabels" />
+                  <FormControl className="border">
+                    <OutlinedInput
+                      id="input-with-icon-adornment"
+                      name="t_end"
+                      value={this.state.name}
+                      onChange={this.handleChangeRadio.bind(this)}
+                      placeholder="Time End"
+                    />
+                  </FormControl>
+                  <Typography className="timeLabels">hours</Typography>
+                </div>
+              </div>
+
+              <div className="parameters">
+                <Typography component="h5" variant="h5" gutterBottom>
+                  OUTPUTS
+                </Typography>
+                <Typography component="h6" variant="h6" gutterBottom>
+                  Select the outputs below that should be included in the simulation.
+                </Typography>
+                <Typography component="h6" variant="h6" gutterBottom>
+                  Concentrations
+                </Typography>
+                {concentrations &&
+                  concentrations.map(input => {
+                    return <this.outputParametersConcentrations data={input} />
+                  })}
+                <Typography component="h6" variant="h6" gutterBottom>
+                  Rates
+                </Typography>
+                {rates &&
+                  rates.map(input => {
+                    return <this.outputParametersRates data={input} />
+                  })}
+              </div>
+            </div>
+                <div id="plotOptions">
+            <Button variant="contained" size="large" id="simButton" onClick={this.submit.bind(this)}>
+              SIMULATE
+            </Button>
+            </div>
+          </Collapse>
         </div>
 
         <div className={this.state.hasUpdated ? 'simulationsContainer' : 'hidden'}>
@@ -172,7 +187,7 @@ class Simulator extends React.Component {
               <this.concentrationsCharts />
             </div>
             <div className="selectionPane">
-              <Card className="parameters">
+              <Card className="plotOptions3">
                 <CardContent>
                   {/* <Typography gutterBottom>PLOT OPTIONS</Typography> */}
                   <this.concentrationsplotOptions name="concentration" XAxis="concentrationXAxis" YAxis="concentrationYAxis" />
@@ -185,7 +200,7 @@ class Simulator extends React.Component {
               <this.ratesCharts />
             </div>
             <div className="selectionPane">
-              <Card className="parameters">
+              <Card className="plotOptions3">
                 <CardContent>
                   {/* <Typography gutterBottom>PLOT OPTIONS</Typography> */}
                   <this.ratesplotOptions name="rates" XAxis="ratesXAxis" YAxis="ratesYAxis" />
@@ -207,7 +222,8 @@ class Simulator extends React.Component {
 
   inputParameters = data => {
     const props = data.data
-
+    // const name = props.name
+    const defaultValue = this.state[data.jsonName]
     const jsonName = this.state[props.name]
     return (
       <div className="input-box">
@@ -215,10 +231,11 @@ class Simulator extends React.Component {
         <Typography gutterBottom>{props.description}</Typography>
         <FormControl margin="dense">
           <TextField
+            defaultValue={defaultValue}
             id={data.jsonName}
             type="phone"
             name={props.name}
-            value={this.state.name}
+            value={defaultValue}
             onChange={this.handleChange.bind(this)}
             margin="normal"
             InputProps={{
